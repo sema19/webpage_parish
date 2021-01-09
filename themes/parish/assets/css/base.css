@@ -1,0 +1,23 @@
+
+.legalmenu > a:link {
+    color: gray;
+    background-color: transparent;
+    text-decoration: none;
+    }
+.legalmenu > a:visited {
+    color: gray;
+    background-color: transparent;
+    text-decoration: none;
+    }
+.legalmenu > a:hover {
+    color: green;
+    background-color: transparent;
+    text-decoration: underline;
+    }
+.legalmenu > a:active {
+    color: green;
+    background-color: transparent;
+    text-decoration: underline;
+    }
+
+

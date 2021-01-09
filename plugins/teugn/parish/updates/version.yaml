@@ -1,0 +1,8 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table teugn_parish_activities'
+    - builder_table_create_teugn_parish_activities.php
+1.0.3:
+    - 'Updated table teugn_parish_activities'
+    - builder_table_update_teugn_parish_activities.php

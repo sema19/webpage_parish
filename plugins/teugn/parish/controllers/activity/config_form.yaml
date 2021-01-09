@@ -1,0 +1,11 @@
+name: Activity
+modelClass: Teugn\Parish\Models\Activitiy
+form: $/teugn/parish/models/activitiy/standard_activity_fields.yaml
+defaultRedirect: teugn/parish/activity
+create:
+    redirect: 'teugn/parish/activity/update/:id'
+    redirectClose: teugn/parish/activity
+update:
+    redirect: teugn/parish/activity
+    redirectClose: teugn/parish/activity
+preview: {  }

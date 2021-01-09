@@ -1,0 +1,45 @@
+fields:
+    type:
+        label: 'teugn.parish::lang.activity_type'
+        options:
+            Eucharistiefeier: Eucharistiefeier
+            Andacht: Andacht
+            Taufe: Taufe
+            Hochzeit: Hochzeit
+            Requiem: Requiem
+            Beerdigung: Beerdigung
+            Kommunion: Kommunion
+            Firmung: Firmung
+            Beichtgelegenheit: Beichtgelegenheit
+        showSearch: true
+        span: auto
+        type: dropdown
+    status:
+        label: 'teugn.parish::lang.status'
+        span: auto
+        showSearch: true
+        options:
+            Normal: Normal
+            New: New
+            Canceled: Canceld
+            Rescheduled: Rescheduled
+        type: dropdown
+    starttime:
+        label: 'teugn.parish::lang.starttime'
+        mode: datetime
+        span: left
+        type: datepicker
+    enttime:
+        label: 'teugn.parish::lang.end'
+        mode: datetime
+        span: auto
+        type: datepicker
+    info:
+        label: 'teugn.parish::lang.info'
+        span: full
+        type: text
+    details:
+        label: 'teugn.parish::lang.details'
+        size: ''
+        span: full
+        type: textarea

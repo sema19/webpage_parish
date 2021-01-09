@@ -1,0 +1,20 @@
+[blogPosts]
+pageNumber = "{{ :page }}"
+postsPerPage = 10
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = "blog/category"
+postPage = "blog/post"
+==
+{% set posts = blogPosts.posts %}
+
+{% if posts.count>0 %}
+<div class="container pt-3 pb-3" id="News">
+    <h4>Berichte:</h4>
+    <ul>
+    {% for post in posts %}
+        <li class="list-item"><a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}

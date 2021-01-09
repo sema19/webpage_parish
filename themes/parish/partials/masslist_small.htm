@@ -1,0 +1,49 @@
+[builderList]
+modelClass = "Teugn\Parish\Models\Activitiy"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "type"
+noRecordsMessage = "No entries found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+recordsPerPage = 6
+pageNumber = "{{ :page }}"
+sortColumn = "start"
+sortDirection = "asc"
+==
+{% set records = builderList.records %}
+{% set displayColumn = builderList.displayColumn %}
+{% set noRecordsMessage = builderList.noRecordsMessage %}
+{% set detailsPage = builderList.detailsPage %}
+{% set detailsKeyColumn = builderList.detailsKeyColumn %}
+{% set detailsUrlParameter = builderList.detailsUrlParameter %}
+
+{% if records.count > 0 %}
+<h4>Gottesdienste:</h4>
+<table>
+{% set last_date = "-not set-" %}
+{% for record in records %}
+    {% set next_date = attribute(record, 'start')|date("d.m.Y") %}
+    {% if (last_date != next_date) %}
+        {% set last_date = next_date %}
+        <tr>
+            <th>{{ last_date }}</th>
+        </tr>
+    {% endif %}
+    <tr>
+        <td>
+            {{ attribute(record, "start")|date("H:i") }}
+        </td>
+        <td>
+            {{ attribute(record, "location") }}
+        </td>
+        <td>
+            {{ attribute(record, "type") }}
+        </td>
+    </tr>
+    {% else %}
+    <p>Keine Gottesdienste eingetragen!</p>
+{% endfor %}
+</table>
+{% endif %}
+

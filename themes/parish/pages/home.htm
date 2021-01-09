@@ -1,0 +1,19 @@
+title = "home"
+url = "/"
+layout = "base"
+description = "index and start page"
+is_hidden = 0
+==
+
+<div class="container pt-0" style="height:100%; background-color: white;" >
+    <div class="row" style="height:100%">
+        <div class="col-md-8">
+            {% partial 'blogcarousel' %}
+            {% partial 'notifications' %}
+        </div>
+        <aside id="right-sidebar" class="col-md-4 widget-area right-sidebar-lg" style="background-color:rgb(242, 242, 242);">
+            {% partial 'sidebar' %}
+        </aside>
+    </div>
+</div>
+

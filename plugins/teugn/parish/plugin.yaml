@@ -1,0 +1,11 @@
+plugin:
+    name: 'teugn.parish::lang.plugin.name'
+    description: 'teugn.parish::lang.plugin.description'
+    author: Teugn
+    icon: oc-icon-plus
+    homepage: ''
+navigation:
+    main-menu-item_parish:
+        label: 'teugn.parish::lang.parish'
+        url: teugn/parish/activity
+        icon: icon-plus

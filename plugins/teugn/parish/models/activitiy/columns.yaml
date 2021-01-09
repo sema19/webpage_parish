@@ -1,0 +1,33 @@
+columns:
+    start:
+        label: 'teugn.parish::lang.starttime'
+        type: text
+        searchable: true
+        sortable: true
+    end:
+        label: 'teugn.parish::lang.end'
+        type: text
+    type:
+        label: 'teugn.parish::lang.activity_type'
+        type: text
+        searchable: true
+        sortable: true
+    info:
+        label: 'teugn.parish::lang.info'
+        type: text
+    detail:
+        label: 'teugn.parish::lang.details'
+        type: text
+    status:
+        label: 'teugn.parish::lang.status'
+        type: text
+        searchable: true
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+        invisible: true
+    updated_at:
+        label: updated_at
+        type: datetime
+        invisible: true
