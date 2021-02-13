@@ -11,27 +11,37 @@ fields:
             Kommunion: Kommunion
             Firmung: Firmung
             Beichtgelegenheit: Beichtgelegenheit
+            Kreuzweg: Kreuzweg
         showSearch: true
-        span: auto
+        span: left
         type: dropdown
-    status:
-        label: 'teugn.parish::lang.status'
-        span: auto
-        showSearch: true
+    location:
+        label: 'teugn.parish::lang.location'
         options:
-            Normal: Normal
-            New: New
-            Canceled: Canceld
-            Rescheduled: Rescheduled
-        type: dropdown
-    starttime:
-        label: 'teugn.parish::lang.starttime'
-        mode: datetime
+            Teugn: Teugn
+            Lengfeld: Lengfeld
+            Alkofen: Alkofen
+            Other: Other
+        span: auto
+        type: radio
+    start_date:
+        label: 'teugn.parish::lang.startdate'
+        mode: date
         span: left
         type: datepicker
-    enttime:
-        label: 'teugn.parish::lang.end'
-        mode: datetime
+    end_date:
+        label: 'teugn.parish::lang.end_date'
+        mode: date
+        span: auto
+        type: datepicker
+    start_time:
+        label: 'teugn.parish::lang.starttime'
+        mode: time
+        span: auto
+        type: datepicker
+    end_time:
+        label: 'teugn.parish::lang.endtime'
+        mode: time
         span: auto
         type: datepicker
     info:
@@ -43,3 +53,36 @@ fields:
         size: ''
         span: full
         type: textarea
+    status:
+        label: 'teugn.parish::lang.status'
+        options:
+            Normal: Normal
+            New: New
+            Canceled: Canceld
+            Rescheduled: Rescheduled
+        showSearch: true
+        span: left
+        type: dropdown
+secondaryTabs:
+    fields:
+        Lector:
+            label: 'teugn.parish::lang.lector'
+            nameFrom: name
+            descriptionFrom: description
+            span: auto
+            type: relation
+            tab: 'teugn.parish::lang.lector'
+        Communionhelper:
+            label: 'teugn.parish::lang.communionhelper'
+            span: auto
+            nameFrom: name
+            descriptionFrom: description
+            type: relation
+            tab: Kommunionhelfer
+        Altarserver:
+            label: 'teugn.parish::lang.altarserver'
+            span: auto
+            nameFrom: name
+            descriptionFrom: description
+            type: relation
+            tab: Ministranten

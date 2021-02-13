@@ -1,16 +1,11 @@
 [viewBag]
 ==
 
-<div class="container pt-0">
+<div class="container p-0">
 
     {% partial 'masslist_small' %}
 
-    <div class="container pt-3 pb-3" id="News">
-        {% partial 'blog_small' %}
-    </div>
+    {% partial 'blog_small' %}
 
-
-    <div class="container pt-3 pb-3" id="contact">
-        {% partial 'contact_small' %}
-    </div>
+    {% partial 'contact_small' %}
 </div>

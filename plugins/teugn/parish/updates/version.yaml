@@ -6,3 +6,84 @@
 1.0.3:
     - 'Updated table teugn_parish_activities'
     - builder_table_update_teugn_parish_activities.php
+1.0.4:
+    - 'Created table teugn_parish_liturgical_calendar'
+    - builder_table_create_teugn_parish_liturgical_calendar.php
+1.0.5:
+    - 'Updated table teugn_parish_activities'
+    - builder_table_update_teugn_parish_activities_2.php
+1.0.6:
+    - 'Updated table teugn_parish_activities'
+    - builder_table_update_teugn_parish_activities_3.php
+1.0.7:
+    - 'Updated table teugn_parish_liturgical_calendar'
+    - builder_table_update_teugn_parish_liturgical_calendar.php
+1.0.8:
+    - 'Updated table teugn_parish_activities'
+    - builder_table_update_teugn_parish_activities_4.php
+1.0.9:
+    - 'Created table teugn_parish_lectors'
+    - builder_table_create_teugn_parish_lectors.php
+1.0.10:
+    - 'Created table teugn_parish_activity_lector_link'
+    - builder_table_create_teugn_parish_activity_lector_link.php
+1.0.11:
+    - 'Created table teugn_parish_news'
+    - builder_table_create_teugn_parish_news.php
+1.0.12:
+    - 'Created table teugn_parish_minis'
+    - builder_table_create_teugn_parish_minis.php
+1.0.13:
+    - 'Created table teugn_parish_minis_link'
+    - builder_table_create_teugn_parish_minis_link.php
+1.0.14:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link.php
+1.0.15:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link_2.php
+1.0.16:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link_3.php
+1.0.17:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link_4.php
+1.0.18:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link_5.php
+1.0.19:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link_6.php
+1.0.20:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link_7.php
+1.0.21:
+    - 'Updated table teugn_parish_minis'
+    - builder_table_update_teugn_parish_minis.php
+1.0.22:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link_8.php
+1.0.23:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link_9.php
+1.0.24:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_minis_link_10.php
+1.0.25:
+    - 'Updated table teugn_parish_minis_link'
+    - builder_table_update_teugn_parish_activity_minis_link.php
+1.0.26:
+    - 'Updated table teugn_parish_activity_minis_link'
+    - builder_table_update_teugn_parish_activity_minis_link_2.php
+1.0.27:
+    - 'Updated table teugn_parish_minis'
+    - builder_table_update_teugn_parish_minis_2.php
+1.0.28:
+    - 'Created table teugn_parish_communionhelpers'
+    - builder_table_create_teugn_parish_communionhelpers.php
+1.0.29:
+    - 'Updated table teugn_parish_communionhelpers'
+    - builder_table_update_teugn_parish_communionhelpers.php
+1.0.30:
+    - 'Created table teugn_parish_altarservers'
+    - builder_table_create_teugn_parish_altarservers.php

@@ -1,12 +1,12 @@
 columns:
-    start:
-        label: 'teugn.parish::lang.starttime'
-        type: text
+    start_date:
+        label: 'teugn.parish::lang.startdate'
+        type: date
         searchable: true
         sortable: true
-    end:
-        label: 'teugn.parish::lang.end'
-        type: text
+    start_time:
+        label: 'teugn.parish::lang.starttime'
+        type: time
     type:
         label: 'teugn.parish::lang.activity_type'
         type: text
@@ -31,3 +31,15 @@ columns:
         label: updated_at
         type: datetime
         invisible: true
+    end_date:
+        label: 'teugn.parish::lang.end_date'
+        type: date
+    end_time:
+        label: 'teugn.parish::lang.endtime'
+        type: time
+    details:
+        label: details
+        type: text
+    location:
+        label: location
+        type: text

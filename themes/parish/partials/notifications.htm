@@ -1,3 +1,71 @@
-<div class="container pt-2 pb-2 pl-2 pr-2">
-    <p>Placeholder Notifications</p>
+[builderList]
+modelClass = "Teugn\Parish\Models\News"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "headline"
+noRecordsMessage = "Keine Nachrichten vorhanden"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+<div class="container p-2" style="height:400px; background-color:RGB(240,240,240);">
+{% set records = builderList.records %}
+{% set displayColumn = builderList.displayColumn %}
+{% set noRecordsMessage = builderList.noRecordsMessage %}
+{% set detailsPage = builderList.detailsPage %}
+{% set detailsKeyColumn = builderList.detailsKeyColumn %}
+{% set detailsUrlParameter = builderList.detailsUrlParameter %}
+
+<h4 style="text-align: center;">Aktuelles:</h4>
+
+    {% for record in records %}
+        <div class="card mb-2" style="font-weight:normal; font-size: 13pt;">
+        <span class="border
+            {% if attribute(record, "type")=="alert" %}
+                border-danger text-danger
+            {% elseif attribute(record, "type")=="note" %}
+                border-info text-info
+            {% elseif attribute(record, "type")=="correction" %}
+                border-warning text-warning
+            {% elseif attribute(record, "type")=="obituary" %}
+                border-dark text-dark
+            {% else %}
+                border-light text-dark
+            {% endif %}
+        ">
+            <div class="card-body pt-1 pb-1">
+                {{ attribute(record, "headline") }}
+                <button class="btn" data-toggle="collapse" data-target="#id_{{ record.id }}">...</button>
+            </div>
+
+            <div class="collapse" id="id_{{ record.id }}">
+                <div class="container ptb-2" style="font-weight:normal; font-size: 12pt;" >
+                {{ attribute(record, "message") }}
+                </div>
+            </div>
+        </span>
+        </div>
+
+    {% else %}
+
+    {% endfor %}
+
+
+{% if records.lastPage > 1 %}
+    <ul class="pagination">
+        {% if records.currentPage > 1 %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage-1) }) }}">&larr; Prev</a></li>
+        {% endif %}
+
+        {% for page in 1..records.lastPage %}
+            <li class="{{ records.currentPage == page ? 'active' : null }}">
+                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+            </li>
+        {% endfor %}
+
+        {% if records.lastPage > records.currentPage %}
+            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage+1) }) }}">Next &rarr;</a></li>
+        {% endif %}
+    </ul>
+{% endif %}
 </div>

@@ -1,34 +1,35 @@
 [blogPosts]
 pageNumber = "{{ :page }}"
+categoryFilter = "TitleCarousel"
 postsPerPage = 4
 noPostsMessage = "No posts found"
 sortOrder = "published_at desc"
-categoryPage = "credits"
-postPage = "credits"
+categoryPage = 404
+postPage = "blog_post"
 ==
 {% set posts = blogPosts.posts %}
-
 {% if posts.count>0 %}
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<div id="blogCarousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-        {% for post in posts %}
+        {% for blogpost in posts %}
+        {% if blogpost.published %}
         {% if slide_cnt < 4 %}
-        {% if slide_cnt==0 %}
-        <div class="carousel-item active" align="center" style="background-color: green;">
-        {% else %}
-        <div class="carousel-item" align="center" style="background-color: green;">
-        {% endif %}
-        <img class="slide{{slide_cnt}}" src="{{ post.featured_images|first.path }}" alt="{{ post.featured_images|first.description }}" style="height:460px;" />
-        <div class="container">
-            <div class="carousel-caption">
-            <h1>{{ post.title }}</h1>
-            <p>Super</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">mehr ...</a></p>
+            {% if slide_cnt==0 %}
+            <div class="carousel-item active" align="center" style="background-color: RGB(192,192,192);">
+            {% else %}
+            <div class="carousel-item" align="center" style="background-color: RGB(192,192,192);">
+            {% endif %}
+            <img class="slide{{slide_cnt}}" src="{{ blogpost.featured_images|first.path }}" alt="{{ blogpost.featured_images|first.description }}" style="height:360px;" />
+            <div class="container">
+                <div class="carousel-caption">
+                <h1>{{ blogpost.title }}</h1>
+                <p><a class="btn btn-lg btn-primary" href="{{ blogpost.url }}" role="button">mehr ...</a></p>
+                </div>
             </div>
-        </div>
-        </div>
+            </div>
         {% endif %}
         {% set slide_cnt = slide_cnt + 1 %}
+        {% endif %}
         {% endfor %}
         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -1,15 +1,13 @@
 [builderList]
 modelClass = "Teugn\Parish\Models\Activitiy"
-scope = "-"
+scope = "scopeNextMasses"
 scopeValue = "{{ :scope }}"
-displayColumn = "type"
+displayColumn = "id"
 noRecordsMessage = "No entries found"
 detailsPage = "-"
 detailsUrlParameter = "id"
 recordsPerPage = 6
 pageNumber = "{{ :page }}"
-sortColumn = "start"
-sortDirection = "asc"
 ==
 {% set records = builderList.records %}
 {% set displayColumn = builderList.displayColumn %}
@@ -19,31 +17,57 @@ sortDirection = "asc"
 {% set detailsUrlParameter = builderList.detailsUrlParameter %}
 
 {% if records.count > 0 %}
-<h4>Gottesdienste:</h4>
-<table>
-{% set last_date = "-not set-" %}
-{% for record in records %}
-    {% set next_date = attribute(record, 'start')|date("d.m.Y") %}
-    {% if (last_date != next_date) %}
-        {% set last_date = next_date %}
+<div class="container pt-3 pb-3" id="activities" >
+    <h4>Gottesdienste:</h4>
+    {% set last_date = "-not set-" %}
+    {% for record in records %}
+        {% set next_date = attribute(record, 'start_date')|date("d.m.Y") %}
+        {% if (last_date != next_date) %}
+            {% set last_date = next_date %}
+            <div class="row" style="font-weight: bold;">
+                <div class="col-12">
+                    {{ last_date }}
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-3">
+                {{ attribute(record, "start_time")|date("H:i") }}
+            </div>
+            <div class="col-2">
+                {{ attribute(record, "location")[:3] }}
+            </div>
+            <div class="col-7">
+                {{ attribute(record, "type") }}
+            </div>
+        </div>
+    {% endfor %}
+    <!--
+    <table>
+    {% set last_date = "-not set-" %}
+    {% for record in records %}
+        {% set next_date = attribute(record, 'start_date')|date("d.m.Y") %}
+        {% if (last_date != next_date) %}
+            {% set last_date = next_date %}
+            <tr>
+                <th>{{ last_date }}</th>
+            </tr>
+        {% endif %}
         <tr>
-            <th>{{ last_date }}</th>
+            <td>
+                {{ attribute(record, "start_time")|date("H:i") }}
+            </td>
+            <td>
+                {{ attribute(record, "location")[:3] }}
+            </td>
+            <td>
+                {{ attribute(record, "type") }}
+            </td>
         </tr>
-    {% endif %}
-    <tr>
-        <td>
-            {{ attribute(record, "start")|date("H:i") }}
-        </td>
-        <td>
-            {{ attribute(record, "location") }}
-        </td>
-        <td>
-            {{ attribute(record, "type") }}
-        </td>
-    </tr>
-    {% else %}
-    <p>Keine Gottesdienste eingetragen!</p>
-{% endfor %}
-</table>
+        {% else %}
+        <p>Keine Gottesdienste eingetragen!</p>
+    {% endfor %}
+    </table>
+    -->
+</div>
 {% endif %}
-

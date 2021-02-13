@@ -9,3 +9,34 @@ navigation:
         label: 'teugn.parish::lang.parish'
         url: teugn/parish/activity
         icon: icon-plus
+        permissions:
+            - 'Manage Masses'
+        sideMenu:
+            parish_day:
+                label: 'Lit. Cal.'
+                url: teugn/parish/liturgicalday
+                icon: icon-sitemap
+            side-menu-item:
+                label: Lector
+                url: teugn/parish/lector
+                icon: icon-book
+            side-menu-item2:
+                label: 'teugn.parish::lang.news'
+                url: teugn/parish/news
+                icon: icon-newspaper-o
+            side-menu-item3:
+                label: 'teugn.parish::lang.Ministranten'
+                url: teugn/parish/altarserver
+                icon: icon-child
+            side-menu-item4:
+                label: 'teugn.parish::lang.communionhelper'
+                url: teugn/parish/communionhelper
+                icon: icon-circle
+    main-menu-liturgical_calendar:
+        label: 'teugn.parish::lang.liturgical_calendar'
+        url: teugn/parish/liturgicalday
+        icon: icon-calendar
+permissions:
+    'Manage Masses':
+        tab: Parish
+        label: 'Manage Masses'
