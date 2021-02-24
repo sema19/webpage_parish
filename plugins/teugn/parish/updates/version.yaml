@@ -87,3 +87,42 @@
 1.0.30:
     - 'Created table teugn_parish_altarservers'
     - builder_table_create_teugn_parish_altarservers.php
+1.0.31:
+    - 'Created table teugn_parish_welcome'
+    - builder_table_create_teugn_parish_welcome.php
+1.0.32:
+    - 'Updated table teugn_parish_welcome'
+    - builder_table_update_teugn_parish_welcome.php
+1.0.33:
+    - 'Created table teugn_parish_carousel'
+    - builder_table_create_teugn_parish_carousel.php
+1.0.34:
+    - 'Updated table teugn_parish_carousel'
+    - builder_table_update_teugn_parish_carousel.php
+1.0.35:
+    - 'Created table teugn_parish_letter'
+    - builder_table_create_teugn_parish_letter.php
+1.0.36:
+    - 'Updated table teugn_parish_letter'
+    - builder_table_update_teugn_parish_letter.php
+1.0.37:
+    - 'Updated table teugn_parish_letter'
+    - builder_table_update_teugn_parish_letter_2.php
+1.0.38:
+    - 'Updated table teugn_parish_letter'
+    - builder_table_update_teugn_parish_letter_3.php
+1.0.39:
+    - 'Updated table teugn_parish_letter'
+    - builder_table_update_teugn_parish_letter_4.php
+1.0.40:
+    - 'Updated table teugn_parish_letter'
+    - builder_table_update_teugn_parish_letter_5.php
+1.0.41:
+    - 'Updated table teugn_parish_letter'
+    - builder_table_update_teugn_parish_letter_6.php
+1.0.42:
+    - 'Created table teugn_parish_sacristan'
+    - builder_table_create_teugn_parish_sacristan.php
+1.0.43:
+    - 'Updated table teugn_parish_activity_sacristan_link'
+    - builder_table_update_teugn_parish_activity_sacristan_link.php

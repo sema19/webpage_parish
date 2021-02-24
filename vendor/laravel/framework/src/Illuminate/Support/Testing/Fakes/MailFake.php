@@ -2,13 +2,12 @@
 
 namespace Illuminate\Support\Testing\Fakes;
 
-use Illuminate\Contracts\Mail\Mailable;
 use Illuminate\Contracts\Mail\Mailer;
-use Illuminate\Contracts\Mail\MailQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Mail\Mailable;
 use PHPUnit\Framework\Assert as PHPUnit;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class MailFake implements Mailer, MailQueue
+class MailFake implements Mailer
 {
     /**
      * All of the mailables that have been sent.
@@ -37,15 +36,9 @@ class MailFake implements Mailer, MailQueue
             return $this->assertSentTimes($mailable, $callback);
         }
 
-        $message = "The expected [{$mailable}] mailable was not sent.";
-
-        if (count($this->queuedMailables) > 0) {
-            $message .= ' Did you mean to use assertQueued() instead?';
-        }
-
         PHPUnit::assertTrue(
             $this->sent($mailable, $callback)->count() > 0,
-            $message
+            "The expected [{$mailable}] mailable was not sent."
         );
     }
 
@@ -86,11 +79,7 @@ class MailFake implements Mailer, MailQueue
      */
     public function assertNothingSent()
     {
-        $mailableNames = collect($this->mailables)->map(function ($mailable) {
-            return get_class($mailable);
-        })->join(', ');
-
-        PHPUnit::assertEmpty($this->mailables, 'The following mailables were sent unexpectedly: '.$mailableNames);
+        PHPUnit::assertEmpty($this->mailables, 'Mailables were sent unexpectedly.');
     }
 
     /**
@@ -149,11 +138,7 @@ class MailFake implements Mailer, MailQueue
      */
     public function assertNothingQueued()
     {
-        $mailableNames = collect($this->queuedMailables)->map(function ($mailable) {
-            return get_class($mailable);
-        })->join(', ');
-
-        PHPUnit::assertEmpty($this->queuedMailables, 'The following mailables were queued unexpectedly: '.$mailableNames);
+        PHPUnit::assertEmpty($this->queuedMailables, 'Mailables were queued unexpectedly.');
     }
 
     /**
@@ -271,11 +256,11 @@ class MailFake implements Mailer, MailQueue
     }
 
     /**
-     * Send a new message with only a raw text part.
+     * Send a new message when only a raw text part.
      *
      * @param  string  $text
      * @param  \Closure|string  $callback
-     * @return void
+     * @return int
      */
     public function raw($text, $callback)
     {
@@ -297,7 +282,7 @@ class MailFake implements Mailer, MailQueue
         }
 
         if ($view instanceof ShouldQueue) {
-            return $this->queue($view, $data);
+            return $this->queue($view, $data, $callback);
         }
 
         $this->mailables[] = $view;
@@ -317,19 +302,6 @@ class MailFake implements Mailer, MailQueue
         }
 
         $this->queuedMailables[] = $view;
-    }
-
-    /**
-     * Queue a new e-mail message for sending after (n) seconds.
-     *
-     * @param  \DateTimeInterface|\DateInterval|int  $delay
-     * @param  \Illuminate\Contracts\Mail\Mailable|string|array  $view
-     * @param  string  $queue
-     * @return mixed
-     */
-    public function later($delay, $view, $queue = null)
-    {
-        $this->queue($view, $queue);
     }
 
     /**

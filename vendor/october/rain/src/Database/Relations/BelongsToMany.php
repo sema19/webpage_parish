@@ -164,7 +164,7 @@ class BelongsToMany extends BelongsToManyBase
     {
         $attachedIdList = $this->parseIds($ids);
         if (empty($attachedIdList)) {
-            $attachedIdList = $this->allRelatedIds()->all();
+            $attachedIdList = $this->newPivotQuery()->lists($this->relatedPivotKey);
         }
 
         /**
@@ -188,7 +188,7 @@ class BelongsToMany extends BelongsToManyBase
         /*
          * See Illuminate\Database\Eloquent\Relations\Concerns\InteractsWithPivotTable
          */
-        parent::detach($attachedIdList, $touch);
+        parent::detach($ids, $touch);
 
         /**
          * @event model.relation.afterDetach
@@ -406,17 +406,7 @@ class BelongsToMany extends BelongsToManyBase
      */
     public function getRelatedIds($sessionKey = null)
     {
-        traceLog('Method BelongsToMany::getRelatedIds has been deprecated, use BelongsToMany::allRelatedIds instead.');
+        traceLog('Method BelongsToMany::allRelatedIds has been deprecated, use BelongsToMany::allRelatedIds instead.');
         return $this->allRelatedIds($sessionKey)->all();
-    }
-
-    /**
-     * Get the pivot models that are currently attached (taking conditions & scopes into account).
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    protected function getCurrentlyAttachedPivots()
-    {
-        return $this->getQuery()->get();
     }
 }

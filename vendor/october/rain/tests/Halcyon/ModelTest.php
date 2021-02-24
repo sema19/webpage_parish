@@ -9,7 +9,7 @@ class HalcyonModelTest extends TestCase
 {
     protected $resolver;
 
-    public function setUp(): void
+    public function setUp()
     {
         include_once __DIR__.'/../fixtures/halcyon/models/Page.php';
         include_once __DIR__.'/../fixtures/halcyon/models/Menu.php';
@@ -132,11 +132,12 @@ ESC;
         @rmdir(dirname($targetFile));
     }
 
+    /**
+     * @expectedException        October\Rain\Halcyon\Exception\InvalidFileNameException
+     * @expectedExceptionMessage The specified file name [one/small/step/for-man.htm] is invalid.
+     */
     public function testCreatePageInDirectoryFail()
     {
-        $this->expectException(\October\Rain\Halcyon\Exception\InvalidFileNameException::class);
-        $this->expectExceptionMessage('The specified file name [one/small/step/for-man.htm] is invalid.');
-
         HalcyonTestPage::create([
             'fileName' => 'one/small/step/for-man.htm',
             'title' => 'One Giant Leap',
@@ -242,11 +243,12 @@ ESC;
         $this->assertFileExists($targetFile);
     }
 
+    /**
+     * @expectedException        October\Rain\Halcyon\Exception\FileExistsException
+     * @expectedExceptionMessage A file already exists
+     */
     public function testUpdatePageFileExists()
     {
-        $this->expectException(\October\Rain\Halcyon\Exception\FileExistsException::class);
-        $this->expectExceptionMessage('A file already exists');
-
         @unlink($targetFile = __DIR__.'/../fixtures/halcyon/themes/theme1/pages/testfile2a.htm');
 
         $page = HalcyonTestPage::create([
@@ -282,11 +284,12 @@ ESC;
         $this->assertFileNotExists($targetFile);
     }
 
+    /**
+     * @expectedException        October\Rain\Halcyon\Exception\ModelException
+     * @expectedExceptionMessage The title field is required.
+     */
     public function testPageWithValidation()
     {
-        $this->expectException(\October\Rain\Halcyon\Exception\ModelException::class);
-        $this->expectExceptionMessage('The title field is required.');
-
         $page = new HalcyonTestPageWithValidation;
         $page->fileName = 'with-validation';
         $page->save();
@@ -294,11 +297,12 @@ ESC;
         $page->delete();
     }
 
+    /**
+     * @expectedException        October\Rain\Halcyon\Exception\ModelException
+     * @expectedExceptionMessage The meta title field is required.
+     */
     public function testPageWithNestedValidationFail()
     {
-        $this->expectException(\October\Rain\Halcyon\Exception\ModelException::class);
-        $this->expectExceptionMessage('The meta title field is required.');
-
         $page = new HalcyonTestPageWithValidation;
         $page->fileName = 'with-validation';
         $page->title = "Pass";
@@ -309,8 +313,6 @@ ESC;
 
     public function testPageWithNestedValidationPass()
     {
-        $this->expectNotToPerformAssertions();
-
         $page = new HalcyonTestPageWithValidation;
         $page->fileName = 'with-validation';
         $page->title = "Pass";
@@ -346,7 +348,7 @@ ESC;
         $page->save();
         $page = HalcyonTestPage::find('dynamicproperty');
         $this->assertNotNull($page);
-        // Dynamic properties should not be saved to DB layer
+        // dynamic properties should not be saved to DB layer
         $this->assertArrayNotHasKey('myDynamicProperty', $page->attributes);
         @unlink($targetFile);
     }
@@ -371,7 +373,6 @@ ESC;
     {
         $translator = $this->getMockBuilder('Illuminate\Contracts\Translation\Translator')->setMethods([
             'get',
-            'choice',
             'trans',
             'transChoice',
             'setLocale',
@@ -380,7 +381,7 @@ ESC;
 
         $translator->expects($this->any())->method('get')->will($this->returnArgument(0));
 
-        $factory = new \October\Rain\Validation\Factory($translator);
+        $factory = new \Illuminate\Validation\Factory($translator);
 
         HalcyonTestPageWithValidation::setModelValidator($factory);
     }

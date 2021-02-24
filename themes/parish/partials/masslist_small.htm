@@ -17,21 +17,29 @@ pageNumber = "{{ :page }}"
 {% set detailsUrlParameter = builderList.detailsUrlParameter %}
 
 {% if records.count > 0 %}
-<div class="container pt-3 pb-3" id="activities" >
-    <h4>Gottesdienste:</h4>
+<div class="container pt-3" id="activities" >
+    <h4 style="background-image: linear-gradient(rgba(255,255,255,0) 84%, green);">Gottesdienste:</h4>
     {% set last_date = "-not set-" %}
     {% for record in records %}
         {% set next_date = attribute(record, 'start_date')|date("d.m.Y") %}
         {% if (last_date != next_date) %}
+            {% set wday = attribute(record, 'start_date')|date("D") %}
+            {% if wday=="Mon" %}{% set wday="Mo" %}{% endif %}
+            {% if wday=="Tue" %}{% set wday="Di" %}{% endif %}
+            {% if wday=="Wed" %}{% set wday="Mi" %}{% endif %}
+            {% if wday=="Thu" %}{% set wday="Do" %}{% endif %}
+            {% if wday=="Fri" %}{% set wday="Fr" %}{% endif %}
+            {% if wday=="Sat" %}{% set wday="Sa" %}{% endif %}
+            {% if wday=="Sun" %}{% set wday="So" %}{% endif %}
             {% set last_date = next_date %}
             <div class="row" style="font-weight: bold;">
                 <div class="col-12">
-                    {{ last_date }}
+                    {{ wday }} {{ last_date }}
                 </div>
             </div>
         {% endif %}
         <div class="row">
-            <div class="col-3">
+            <div class="col-2">
                 {{ attribute(record, "start_time")|date("H:i") }}
             </div>
             <div class="col-2">

@@ -1,13 +1,12 @@
 <?php namespace October\Rain\Database\Traits;
 
 use App;
-use Exception;
-use Input;
 use Lang;
-use Illuminate\Contracts\Validation\Rule;
-use October\Rain\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
+use Input;
 use October\Rain\Database\ModelException;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Validator;
+use Exception;
 
 trait Validation
 {
@@ -374,10 +373,6 @@ trait Validation
              * Analyse each rule individually
              */
             foreach ($ruleParts as $key => $rulePart) {
-                if ($rulePart instanceof Rule) {
-                    continue;
-                }
-
                 /*
                  * Remove primary key unique validation rule if the model already exists
                  */

@@ -4,7 +4,6 @@ namespace Illuminate\View\Compilers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 
 class BladeCompiler extends Compiler implements CompilerInterface
 {
@@ -13,8 +12,6 @@ class BladeCompiler extends Compiler implements CompilerInterface
         Concerns\CompilesComponents,
         Concerns\CompilesConditionals,
         Concerns\CompilesEchos,
-        Concerns\CompilesErrors,
-        Concerns\CompilesHelpers,
         Concerns\CompilesIncludes,
         Concerns\CompilesInjections,
         Concerns\CompilesJson,
@@ -109,7 +106,7 @@ class BladeCompiler extends Compiler implements CompilerInterface
     /**
      * Compile the view at the given path.
      *
-     * @param  string|null  $path
+     * @param  string  $path
      * @return void
      */
     public function compile($path = null)
@@ -121,46 +118,8 @@ class BladeCompiler extends Compiler implements CompilerInterface
         if (! is_null($this->cachePath)) {
             $contents = $this->compileString($this->files->get($this->getPath()));
 
-            if (! empty($this->getPath())) {
-                $contents = $this->appendFilePath($contents);
-            }
-
-            $this->files->put(
-                $this->getCompiledPath($this->getPath()), $contents
-            );
+            $this->files->put($this->getCompiledPath($this->getPath()), $contents);
         }
-    }
-
-    /**
-     * Append the file path to the compiled string.
-     *
-     * @param  string  $contents
-     * @return string
-     */
-    protected function appendFilePath($contents)
-    {
-        $tokens = $this->getOpenAndClosingPhpTokens($contents);
-
-        if ($tokens->isNotEmpty() && $tokens->last() !== T_CLOSE_TAG) {
-            $contents .= ' ?>';
-        }
-
-        return $contents."<?php /**PATH {$this->getPath()} ENDPATH**/ ?>";
-    }
-
-    /**
-     * Get the open and closing PHP tag tokens from the given string.
-     *
-     * @param  string  $contents
-     * @return \Illuminate\Support\Collection
-     */
-    protected function getOpenAndClosingPhpTokens($contents)
-    {
-        return collect(token_get_all($contents))
-            ->pluck(0)
-            ->filter(function ($token) {
-                return in_array($token, [T_OPEN_TAG, T_OPEN_TAG_WITH_ECHO, T_CLOSE_TAG]);
-            });
     }
 
     /**
@@ -192,9 +151,17 @@ class BladeCompiler extends Compiler implements CompilerInterface
      */
     public function compileString($value)
     {
-        [$this->footer, $result] = [[], ''];
+        if (strpos($value, '@verbatim') !== false) {
+            $value = $this->storeVerbatimBlocks($value);
+        }
 
-        $value = $this->storeUncompiledBlocks($value);
+        $this->footer = [];
+
+        if (strpos($value, '@php') !== false) {
+            $value = $this->storePhpBlocks($value);
+        }
+
+        $result = '';
 
         // Here we will loop through all of the tokens returned by the Zend lexer and
         // parse each one into the corresponding valid PHP. We will then have this
@@ -215,25 +182,6 @@ class BladeCompiler extends Compiler implements CompilerInterface
         }
 
         return $result;
-    }
-
-    /**
-     * Store the blocks that do not receive compilation.
-     *
-     * @param  string  $value
-     * @return string
-     */
-    protected function storeUncompiledBlocks($value)
-    {
-        if (strpos($value, '@verbatim') !== false) {
-            $value = $this->storeVerbatimBlocks($value);
-        }
-
-        if (strpos($value, '@php') !== false) {
-            $value = $this->storePhpBlocks($value);
-        }
-
-        return $value;
     }
 
     /**
@@ -323,7 +271,7 @@ class BladeCompiler extends Compiler implements CompilerInterface
      */
     protected function parseToken($token)
     {
-        [$id, $content] = $token;
+        list($id, $content) = $token;
 
         if ($id == T_INLINE_HTML) {
             foreach ($this->compilers as $type) {
@@ -343,7 +291,7 @@ class BladeCompiler extends Compiler implements CompilerInterface
     protected function compileExtensions($value)
     {
         foreach ($this->extensions as $compiler) {
-            $value = $compiler($value, $this);
+            $value = call_user_func($compiler, $value, $this);
         }
 
         return $value;
@@ -447,19 +395,13 @@ class BladeCompiler extends Compiler implements CompilerInterface
         $this->conditions[$name] = $callback;
 
         $this->directive($name, function ($expression) use ($name) {
-            return $expression !== ''
+            return $expression
                     ? "<?php if (\Illuminate\Support\Facades\Blade::check('{$name}', {$expression})): ?>"
                     : "<?php if (\Illuminate\Support\Facades\Blade::check('{$name}')): ?>";
         });
 
-        $this->directive('unless'.$name, function ($expression) use ($name) {
-            return $expression !== ''
-                ? "<?php if (! \Illuminate\Support\Facades\Blade::check('{$name}', {$expression})): ?>"
-                : "<?php if (! \Illuminate\Support\Facades\Blade::check('{$name}')): ?>";
-        });
-
         $this->directive('else'.$name, function ($expression) use ($name) {
-            return $expression !== ''
+            return $expression
                 ? "<?php elseif (\Illuminate\Support\Facades\Blade::check('{$name}', {$expression})): ?>"
                 : "<?php elseif (\Illuminate\Support\Facades\Blade::check('{$name}')): ?>";
         });
@@ -482,60 +424,14 @@ class BladeCompiler extends Compiler implements CompilerInterface
     }
 
     /**
-     * Register a component alias directive.
-     *
-     * @param  string  $path
-     * @param  string|null  $alias
-     * @return void
-     */
-    public function component($path, $alias = null)
-    {
-        $alias = $alias ?: Arr::last(explode('.', $path));
-
-        $this->directive($alias, function ($expression) use ($path) {
-            return $expression
-                        ? "<?php \$__env->startComponent('{$path}', {$expression}); ?>"
-                        : "<?php \$__env->startComponent('{$path}'); ?>";
-        });
-
-        $this->directive('end'.$alias, function ($expression) {
-            return '<?php echo $__env->renderComponent(); ?>';
-        });
-    }
-
-    /**
-     * Register an include alias directive.
-     *
-     * @param  string  $path
-     * @param  string|null  $alias
-     * @return void
-     */
-    public function include($path, $alias = null)
-    {
-        $alias = $alias ?: Arr::last(explode('.', $path));
-
-        $this->directive($alias, function ($expression) use ($path) {
-            $expression = $this->stripParentheses($expression) ?: '[]';
-
-            return "<?php echo \$__env->make('{$path}', {$expression}, \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>";
-        });
-    }
-
-    /**
      * Register a handler for custom directives.
      *
      * @param  string  $name
      * @param  callable  $handler
      * @return void
-     *
-     * @throws \InvalidArgumentException
      */
     public function directive($name, callable $handler)
     {
-        if (! preg_match('/^\w+(?:::\w+)?$/x', $name)) {
-            throw new InvalidArgumentException("The directive name [{$name}] is not valid. Directive names must only contain alphanumeric characters and underscores.");
-        }
-
         $this->customDirectives[$name] = $handler;
     }
 
@@ -561,22 +457,12 @@ class BladeCompiler extends Compiler implements CompilerInterface
     }
 
     /**
-     * Set the "echo" format to double encode entities.
+     * Set the echo format to double encode entities.
      *
      * @return void
      */
-    public function withDoubleEncoding()
+    public function doubleEncode()
     {
         $this->setEchoFormat('e(%s, true)');
-    }
-
-    /**
-     * Set the "echo" format to not double encode entities.
-     *
-     * @return void
-     */
-    public function withoutDoubleEncoding()
-    {
-        $this->setEchoFormat('e(%s, false)');
     }
 }

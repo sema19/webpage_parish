@@ -25,7 +25,7 @@ trait SyntaxModelTrait
         }
 
         foreach ($fields as $field => $params) {
-            if (empty($params['type'])) {
+            if (!isset($params['type'])) {
                 continue;
             }
 
@@ -48,10 +48,6 @@ trait SyntaxModelTrait
         }
 
         foreach ($fields as $field => $params) {
-            if (empty($params['type'])) {
-                continue;
-            }
-
             /*
              * File upload
              */
@@ -59,10 +55,12 @@ trait SyntaxModelTrait
                 if ($this->sessionKey) {
                     if ($image = $this->$field()->withDeferred($this->sessionKey)->first()) {
                         $data[$field] = $this->getThumbForImage($image, $params);
-                    } else {
+                    }
+                    else {
                         unset($data[$field]);
                     }
-                } elseif ($this->$field) {
+                }
+                elseif ($this->$field) {
                     $data[$field] = $this->getThumbForImage($this->$field, $params);
                 }
             }
@@ -80,7 +78,8 @@ trait SyntaxModelTrait
         $imageHeight = array_get($params, 'imageHeight');
         if ($imageWidth && $imageHeight) {
             $path = $image->getThumb($imageWidth, $imageHeight, ['mode' => 'crop']);
-        } else {
+        }
+        else {
             $path = $image->getPath();
         }
 
@@ -105,13 +104,10 @@ trait SyntaxModelTrait
 
         $newFields = [];
         foreach ($fields as $field => $params) {
-            if (empty($params['type'])) {
-                continue;
-            }
-
             if ($params['type'] != 'fileupload') {
                 $newField = $this->getSyntaxDataColumnName().'['.$field.']';
-            } else {
+            }
+            else {
                 $newField = $field;
             }
 

@@ -16,7 +16,7 @@ class EmitterTest extends TestCase
      *
      * @return void
      */
-    public function setUp(): void
+    public function setUp()
     {
         $traitName = 'October\Rain\Support\Traits\Emitter';
         $this->traitObject = $this->getObjectForTrait($traitName);

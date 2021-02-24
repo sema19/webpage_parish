@@ -32,11 +32,36 @@ navigation:
                 label: 'teugn.parish::lang.communionhelper'
                 url: teugn/parish/communionhelper
                 icon: icon-circle
+            side-menu-item5:
+                label: Welcome
+                url: teugn/parish/welcome
+                icon: icon-send-o
+            side-menu-item6:
+                label: 'Picture Carousel'
+                url: teugn/parish/picturecarousel
+                icon: icon-picture-o
+            side-menu-item7:
+                label: Pfarrbrief
+                url: teugn/parish/letter
+                icon: icon-sitemap
+            side-menu-item8:
+                label: 'teugn.parish::lang.sacristan'
+                url: teugn/parish/sacristan
+                icon: icon-user
     main-menu-liturgical_calendar:
         label: 'teugn.parish::lang.liturgical_calendar'
         url: teugn/parish/liturgicalday
         icon: icon-calendar
+    main-menu-item:
+        label: 'teugn.parish::lang.sacristan'
+        url: teugn/parish/activity_sacristan
+        icon: icon-group
+        permissions:
+            - SacristanDisposition
 permissions:
     'Manage Masses':
         tab: Parish
         label: 'Manage Masses'
+    SacristanDisposition:
+        tab: Parish
+        label: 'Sacristan Dispo'

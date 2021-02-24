@@ -1,5 +1,4 @@
 <?php
-
 class ValidationTraitTest extends TestCase
 {
     public function testArrayFieldNames()

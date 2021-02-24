@@ -12,7 +12,6 @@ use October\Rain\Database\Relations\MorphOne;
 use October\Rain\Database\Relations\AttachMany;
 use October\Rain\Database\Relations\AttachOne;
 use October\Rain\Database\Relations\HasManyThrough;
-use October\Rain\Database\Relations\HasOneThrough;
 use InvalidArgumentException;
 
 trait HasRelationships
@@ -102,37 +101,16 @@ trait HasRelationships
     public $attachMany = [];
 
     /**
-     * protected $hasManyThrough = [
-     *     'posts' => ['Posts', 'through' => 'User']
+     * protected $attachMany = [
+     *     'pictures' => ['Picture', 'name'=> 'imageable']
      * ];
      */
     public $hasManyThrough = [];
 
     /**
-     * protected $hasOneThrough = [
-     *     'post' => ['Posts', 'through' => 'User']
-     * ];
-     */
-    public $hasOneThrough = [];
-
-    /**
      * @var array Excepted relationship types, used to cycle and verify relationships.
      */
-    protected static $relationTypes = [
-        'hasOne',
-        'hasMany',
-        'belongsTo',
-        'belongsToMany',
-        'morphTo',
-        'morphOne',
-        'morphMany',
-        'morphToMany',
-        'morphedByMany',
-        'attachOne',
-        'attachMany',
-        'hasOneThrough',
-        'hasManyThrough'
-    ];
+    protected static $relationTypes = ['hasOne', 'hasMany', 'belongsTo', 'belongsToMany', 'morphTo', 'morphOne', 'morphMany', 'morphToMany', 'morphedByMany', 'attachOne', 'attachMany', 'hasManyThrough'];
 
 
     //
@@ -321,7 +299,6 @@ trait HasRelationships
                 $relationObj = $this->$relationType($relation[0], $relation['public'], $relation['key'], $relationName);
                 break;
 
-            case 'hasOneThrough':
             case 'hasManyThrough':
                 $relation = $this->validateRelationArgs($relationName, ['key', 'throughKey', 'otherKey', 'secondOtherKey'], ['through']);
                 $relationObj = $this->$relationType($relation[0], $relation['through'], $relation['key'], $relation['throughKey'], $relation['otherKey'], $relation['secondOtherKey']);
@@ -439,7 +416,7 @@ trait HasRelationships
      * Overridden from {@link Eloquent\Model} to allow the usage of the intermediary methods to handle the relation.
      * @return \October\Rain\Database\Relations\BelongsTo
      */
-    public function morphTo($name = null, $type = null, $id = null, $ownerKey = null)
+    public function morphTo($name = null, $type = null, $id = null)
     {
         if (is_null($name)) {
             $name = $this->getRelationCaller();
@@ -448,8 +425,8 @@ trait HasRelationships
         list($type, $id) = $this->getMorphs(Str::snake($name), $type, $id);
 
         return empty($class = $this->{$type})
-                    ? $this->morphEagerTo($name, $type, $id, $ownerKey)
-                    : $this->morphInstanceTo($class, $name, $type, $id, $ownerKey);
+                    ? $this->morphEagerTo($name, $type, $id)
+                    : $this->morphInstanceTo($class, $name, $type, $id);
     }
 
     /**
@@ -458,16 +435,15 @@ trait HasRelationships
      * @param  string  $name
      * @param  string  $type
      * @param  string  $id
-     * @param  string  $ownerKey
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    protected function morphEagerTo($name, $type, $id, $ownerKey)
+    protected function morphEagerTo($name, $type, $id)
     {
         return new MorphTo(
             $this->newQuery()->setEagerLoads([]),
             $this,
             $id,
-            $ownerKey,
+            null,
             $type,
             $name
         );
@@ -480,10 +456,9 @@ trait HasRelationships
      * @param  string  $name
      * @param  string  $type
      * @param  string  $id
-     * @param  string  $ownerKey
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    protected function morphInstanceTo($target, $name, $type, $id, $ownerKey)
+    protected function morphInstanceTo($target, $name, $type, $id)
     {
         $instance = $this->newRelatedInstance(
             static::getActualClassNameForMorph($target)
@@ -493,7 +468,7 @@ trait HasRelationships
             $instance->newQuery(),
             $this,
             $id,
-            $ownerKey ?? $instance->getKeyName(),
+            $instance->getKeyName(),
             $type,
             $name
         );
@@ -522,7 +497,7 @@ trait HasRelationships
     /**
      * Define a has-many-through relationship.
      * This code is a duplicate of Eloquent but uses a Rain relation class.
-     * @return \October\Rain\Database\Relations\HasManyThrough
+     * @return \October\Rain\Database\Relations\HasMany
      */
     public function hasManyThrough($related, $through, $primaryKey = null, $throughKey = null, $localKey = null, $secondLocalKey = null, $relationName = null)
     {
@@ -543,32 +518,6 @@ trait HasRelationships
         $instance = $this->newRelatedInstance($related);
 
         return new HasManyThrough($instance->newQuery(), $this, $throughInstance, $primaryKey, $throughKey, $localKey, $secondLocalKey, $relationName);
-    }
-
-    /**
-     * Define a has-one-through relationship.
-     * This code is a duplicate of Eloquent but uses a Rain relation class.
-     * @return \October\Rain\Database\Relations\HasOneThrough
-     */
-    public function hasOneThrough($related, $through, $primaryKey = null, $throughKey = null, $localKey = null, $secondLocalKey = null, $relationName = null)
-    {
-        if (is_null($relationName)) {
-            $relationName = $this->getRelationCaller();
-        }
-
-        $throughInstance = new $through;
-
-        $primaryKey = $primaryKey ?: $this->getForeignKey();
-
-        $throughKey = $throughKey ?: $throughInstance->getForeignKey();
-
-        $localKey = $localKey ?: $this->getKeyName();
-
-        $secondLocalKey = $secondLocalKey ?: $throughInstance->getKeyName();
-
-        $instance = $this->newRelatedInstance($related);
-
-        return new HasOneThrough($instance->newQuery(), $this, $throughInstance, $primaryKey, $throughKey, $localKey, $secondLocalKey, $relationName);
     }
 
     /**

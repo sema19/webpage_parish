@@ -1,12 +1,17 @@
-[blogPosts]
+[builderList]
+modelClass = "Teugn\Parish\Models\Picturecarousel"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "headline"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+recordsPerPage = 5
 pageNumber = "{{ :page }}"
-categoryFilter = "TitleCarousel"
-postsPerPage = 4
-noPostsMessage = "No posts found"
-sortOrder = "published_at desc"
-categoryPage = 404
-postPage = "blog_post"
+sortColumn = "created_at"
+sortDirection = "desc"
 ==
+<!--
 {% set posts = blogPosts.posts %}
 {% if posts.count>0 %}
 <div id="blogCarousel" class="carousel slide" data-ride="carousel">
@@ -47,3 +52,32 @@ postPage = "blog_post"
     <h3 style="text-align: center;">der Pfarrei Teugn Lengfeld Alkofen</h3>
 </div>
 {% endif %}
+-->
+
+
+{% set records = builderList.records %}
+{% set displayColumn = builderList.displayColumn %}
+{% set noRecordsMessage = builderList.noRecordsMessage %}
+{% set detailsPage = builderList.detailsPage %}
+{% set detailsKeyColumn = builderList.detailsKeyColumn %}
+{% set detailsUrlParameter = builderList.detailsUrlParameter %}
+
+<div id="blogCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        {% for record in records %}
+            <div class="carousel-item {% if loop.index0==0 %}active{% endif %}" align="center" style="background-color: RGB(192,192,192);">
+                <img class="slide{{ loop.index }}" src="{{ record.picture | media }}" alt="{{ record.picture }}" style="height:360px;" />
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1>{{ record.headline }}</h1>
+                        {% if record.link %}
+                        <p><a class="btn btn-lg btn-success" href="{{ record.link }}" role="button">mehr ...</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="no-data">{{ noRecordsMessage }}</p>
+        {% endfor %}
+    </div>
+</div>

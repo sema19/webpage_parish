@@ -72,6 +72,12 @@ class Activitiy extends Model
             'table' => 'teugn_parish_altarservers_link',
             'otherKey' => 'altarservers_id',
             'key' => 'activity_id'
+        ],
+        'Sacristan' => [
+            'teugn\parish\models\Sacristan',
+            'table' => 'teugn_parish_activity_sacristan_link',
+            'otherKey' => 'sacristan_id',
+            'key' => 'activity_id'
         ]
 
     ];

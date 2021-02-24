@@ -12,7 +12,7 @@ class TranslatorTest extends TestCase
      */
     private $translator;
 
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 

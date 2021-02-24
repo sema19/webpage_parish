@@ -21,10 +21,10 @@ use Symfony\Component\VarDumper\Cloner\DumperInterface;
  */
 abstract class AbstractDumper implements DataDumperInterface, DumperInterface
 {
-    public const DUMP_LIGHT_ARRAY = 1;
-    public const DUMP_STRING_LENGTH = 2;
-    public const DUMP_COMMA_SEPARATOR = 4;
-    public const DUMP_TRAILING_COMMA = 8;
+    const DUMP_LIGHT_ARRAY = 1;
+    const DUMP_STRING_LENGTH = 2;
+    const DUMP_COMMA_SEPARATOR = 4;
+    const DUMP_TRAILING_COMMA = 8;
 
     public static $defaultOutput = 'php://output';
 
@@ -42,9 +42,9 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
      * @param string|null                   $charset The default character encoding to use for non-UTF8 strings
      * @param int                           $flags   A bit field of static::DUMP_* constants to fine tune dumps representation
      */
-    public function __construct($output = null, string $charset = null, int $flags = 0)
+    public function __construct($output = null, $charset = null, $flags = 0)
     {
-        $this->flags = $flags;
+        $this->flags = (int) $flags;
         $this->setCharset($charset ?: ini_get('php.output_encoding') ?: ini_get('default_charset') ?: 'UTF-8');
         $this->decimalPoint = localeconv();
         $this->decimalPoint = $this->decimalPoint['decimal_point'];
@@ -116,6 +116,7 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
     /**
      * Dumps a Data object.
      *
+     * @param Data                               $data   A Data object
      * @param callable|resource|string|true|null $output A line dumper callable, an opened stream, an output path or true to return the dump
      *
      * @return string|null The dump as string when $output is true
@@ -165,7 +166,7 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
      */
     protected function dumpLine($depth)
     {
-        ($this->lineDumper)($this->line, $depth, $this->indentPad);
+        \call_user_func($this->lineDumper, $this->line, $depth, $this->indentPad);
         $this->line = '';
     }
 

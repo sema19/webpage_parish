@@ -5,7 +5,9 @@ use October\Rain\Support\ServiceProvider;
 class ArgonServiceProvider extends ServiceProvider
 {
     /**
-     * @var bool Indicates if loading of the provider is deferred.
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
      */
     protected $defer = false;
 
@@ -35,13 +37,13 @@ class ArgonServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get the locale to use as the fallback
+     * Split the locale and use it as the fallback.
      */
     protected function getFallbackLocale($locale)
     {
         if ($position = strpos($locale, '-')) {
             $target = substr($locale, 0, $position);
-            $resource = __DIR__ . '/../../../../nesbot/carbon/src/Carbon/Lang/'.$target.'.php';
+            $resource = __DIR__ . '/../../../../jenssegers/date/src/Lang/'.$target.'.php';
             if (file_exists($resource)) {
                 return $target;
             }
@@ -51,12 +53,11 @@ class ArgonServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get the services provided by the provider.
+     * Register the service provider.
      *
-     * @return array
+     * @return void
      */
-    public function provides()
+    public function register()
     {
-        return ['Date'];
     }
 }

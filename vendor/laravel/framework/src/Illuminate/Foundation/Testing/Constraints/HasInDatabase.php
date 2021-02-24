@@ -48,7 +48,7 @@ class HasInDatabase extends Constraint
      * @param  string  $table
      * @return bool
      */
-    public function matches($table): bool
+    public function matches($table)
     {
         return $this->database->table($table)->where($this->data)->count() > 0;
     }
@@ -59,7 +59,7 @@ class HasInDatabase extends Constraint
      * @param  string  $table
      * @return string
      */
-    public function failureDescription($table): string
+    public function failureDescription($table)
     {
         return sprintf(
             "a row in the table [%s] matches the attributes %s.\n\n%s",
@@ -75,29 +75,16 @@ class HasInDatabase extends Constraint
      */
     protected function getAdditionalInfo($table)
     {
-        $query = $this->database->table($table);
+        $results = $this->database->table($table)->get();
 
-        $similarResults = $query->where(
-            array_key_first($this->data),
-            $this->data[array_key_first($this->data)]
-        )->limit($this->show)->get();
-
-        if ($similarResults->isNotEmpty()) {
-            $description = 'Found similar results: '.json_encode($similarResults, JSON_PRETTY_PRINT);
-        } else {
-            $query = $this->database->table($table);
-
-            $results = $query->limit($this->show)->get();
-
-            if ($results->isEmpty()) {
-                return 'The table is empty.';
-            }
-
-            $description = 'Found: '.json_encode($results, JSON_PRETTY_PRINT);
+        if ($results->isEmpty()) {
+            return 'The table is empty';
         }
 
-        if ($query->count() > $this->show) {
-            $description .= sprintf(' and %s others', $query->count() - $this->show);
+        $description = 'Found: '.json_encode($results->take($this->show), JSON_PRETTY_PRINT);
+
+        if ($results->count() > $this->show) {
+            $description .= sprintf(' and %s others', $results->count() - $this->show);
         }
 
         return $description;
@@ -109,7 +96,7 @@ class HasInDatabase extends Constraint
      * @param  int  $options
      * @return string
      */
-    public function toString($options = 0): string
+    public function toString($options = 0)
     {
         return json_encode($this->data, $options);
     }

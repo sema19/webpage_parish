@@ -4,8 +4,44 @@ layout = "base"
 description = "index and start page"
 is_hidden = 0
 ==
+function onTest()
+{
+    $this['result'] = input('value1') + input('value2');
+    $this['val1'] = input('value1');
+    $this['val2'] = input('value2');
+    // this works !!!!
+}
 
+function onDownload()
+{
 
+    //debug_to_console("ON DOWNLOAD DEBUG!!!");
+    //echo "MY DOWNLOAD";
+    //return Redirect::to('http://google.com');
+
+    //$this->dwnldres ='Hello world 1!';
+
+    //$this->page['dwnldres'] = 'Hello world 2!';
+
+    // From a backend controller or widget
+    //$this->vars['dwnldres'] = 'Hello world 3!';
+
+    // Get the file object (many ways to do this, it is a normal relation)
+    $file = $this->getPath("themes/parish/assets/images/priest.jpg");  //$item->featured_images()->first();
+
+    dd($file);
+
+    // If the file is public, this will return the direct location
+    //echo $file->getPath();
+
+    // If the file is private, you will need to return the contents via a script
+    // This will include the necessary header to download the file
+    echo $file->output();
+
+}
+
+==
+{% framework %}
 <div class="container p-0" style="height:100%; background-color: white;" >
     <div class="row">
         <div class="col-xl-12">

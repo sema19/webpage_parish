@@ -10,13 +10,13 @@
         <title>Pfarrei Teugn Lengfeld Alkofen</title>
     </head>
     <body>
-      <div class="bg" style="background-image: url({{ 'assets/images/background.png'|theme }});" >
+      <div class="bg" style="min-height: 100%; background-image: url({{ 'assets/images/background.png'|theme }}); background-attachment:fixed;" >
         <header>
             {% partial 'header' %}
         </header>
         {% partial 'navigation' %}
-        <div class="container p-0" style="height:100%; background-color: white;" >
-            <div class="row" style="height:100%">
+        <div class="container p-0 min-vh-100" style="min-height: 100%;  background-color: white;" >
+            <div class="row" style="min-height:100%;">
                 {% page %}
             </div>
         </div>

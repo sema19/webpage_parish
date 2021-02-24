@@ -38,4 +38,9 @@
     'Ministranten' => 'Ministranten',
     'ministrant' => 'Ministrant',
     'communionhelper' => 'Communion Helper',
+    'picture' => 'Picture',
+    'headline_color' => 'Headline Color',
+    'background_color' => 'Background Color',
+    'link' => 'Link',
+    'sacristan' => 'Sacristan',
 ];

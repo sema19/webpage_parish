@@ -1,49 +1,36 @@
 <?php namespace October\Rain\Foundation\Providers;
 
+use Illuminate\Log\Writer;
 use Illuminate\Log\LogServiceProvider as LogServiceProviderBase;
 
 class LogServiceProvider extends LogServiceProviderBase
 {
     /**
-     * Register the service provider.
+     * Configure the Monolog handlers for the application.
      *
+     * @param  \Illuminate\Log\Writer  $log
      * @return void
      */
-    public function register()
+    protected function configureSingleHandler(Writer $log)
     {
-        parent::register();
-
-        /*
-         * After registration
-         */
-        $this->app->booting(function () {
-            $this->configureDefaultLogger();
-        });
+        $log->useFiles(
+            $this->app->storagePath().'/logs/system.log',
+            $this->logLevel()
+        );
     }
 
     /**
-     * Configure the default log channel for the application
-     * when no configuration is supplied.
+     * Configure the Monolog handlers for the application.
      *
+     * @param  \Illuminate\Log\Writer  $log
      * @return void
      */
-    protected function configureDefaultLogger()
+    protected function configureDailyHandler(Writer $log)
     {
-        $config = $this->app->make('config');
-
-        if ($config->get('logging.default', null) !== null) {
-            return;
-        }
-
-        /*
-         * Set default values as single log file
-         */
-        $config->set('logging.default', 'single');
-
-        $config->set('logging.channels.single', [
-            'driver' => 'single',
-            'path' => storage_path('logs/system.log'),
-            'level' => 'debug',
-        ]);
+        $log->useDailyFiles(
+            $this->app->storagePath().'/logs/system.log',
+            $this->maxFiles(),
+            $this->logLevel()
+        );
     }
 }

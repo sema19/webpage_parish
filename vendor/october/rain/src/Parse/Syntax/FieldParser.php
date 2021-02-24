@@ -161,14 +161,11 @@ class FieldParser
         $defaults = [];
 
         foreach ($fields as $field => $params) {
-            if (empty($params['type'])) {
-                continue;
-            }
-
             if ($params['type'] == 'repeater') {
                 $defaults[$field] = [];
                 $defaults[$field][] = $this->getDefaultParams(array_get($params, 'fields', []));
-            } else {
+            }
+            else {
                 $defaults[$field] = $params['default'] ?? null;
             }
         }
@@ -250,7 +247,8 @@ class FieldParser
             if (isset($params['name'])) {
                 $name = $params['name'];
                 unset($params['name']);
-            } else {
+            }
+            else {
                 $name = md5($tagString);
             }
 
@@ -329,8 +327,8 @@ class FieldParser
      *  In: name="test" comment="This is a test"
      *  Out: ['name' => 'test', 'comment' => 'This is a test']
      *
-     * @param  string $string
-     * @return array
+     * @param  [type] $string [description]
+     * @return [type]         [description]
      */
     protected function processParamsRegex($string)
     {
@@ -393,36 +391,17 @@ class FieldParser
     /**
      * Splits an option string to an array.
      *
-     * one|two                -> [one, two]
-     * one:One|two:Two        -> [one => 'One', two => 'Two']
-     * \Path\To\Class::method -> \Path\To\Class::method(): array
+     * one|two           -> [one, two]
+     * one:One|two:Two   -> [one => 'One', two => 'Two']
      *
      * @param  string $optionsString
-     * @throws Exception
      * @return array
      */
     protected function processOptionsToArray($optionsString)
     {
-        $result = [];
-
-        if (str_contains($optionsString, '::')) {
-            $options = explode('::', $optionsString);
-            if (count($options) === 2 && class_exists($options[0]) && method_exists($options[0], $options[1])) {
-                $result = $options[0]::{$options[1]}();
-                if (!is_array($result)) {
-                    throw new ApplicationException(sprintf(
-                        'Invalid dropdown option array returned by `%s::%s`',
-                        $options[0],
-                        $options[1]
-                    ));
-                }
-
-                return $result;
-            }
-        }
-
         $options = explode('|', $optionsString);
 
+        $result = [];
         foreach ($options as $index => $optionStr) {
             $parts = explode(':', $optionStr, 2);
 

@@ -1,6 +1,5 @@
 <?php namespace October\Rain\Database\Attach;
 
-use Log;
 use Cache;
 use Storage;
 use File as FileHelper;
@@ -31,7 +30,7 @@ class File extends Model
     public $morphTo = [
         'attachment' => []
     ];
-
+    
     /**
      * @var array The attributes that are mass assignable.
      */
@@ -642,7 +641,6 @@ class File extends Model
                 ;
             }
             catch (Exception $ex) {
-                Log::error($ex);
                 BrokenImage::copyTo($thumbPath);
             }
         }
@@ -677,7 +675,6 @@ class File extends Model
                 ;
             }
             catch (Exception $ex) {
-                Log::error($ex);
                 BrokenImage::copyTo($tempThumb);
             }
 
@@ -994,7 +991,7 @@ class File extends Model
      */
     protected function isLocalStorage()
     {
-        return FileHelper::isLocalDisk($this->getDisk());
+        return Storage::getDefaultDriver() == 'local';
     }
 
     /**

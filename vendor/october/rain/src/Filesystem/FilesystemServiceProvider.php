@@ -36,18 +36,6 @@ class FilesystemServiceProvider extends FilesystemServiceProviderBase
     }
 
     /**
-     * Register the filesystem manager.
-     *
-     * @return void
-     */
-    protected function registerManager()
-    {
-        $this->app->singleton('filesystem', function () {
-            return new FilesystemManager($this->app);
-        });
-    }
-
-    /**
      * Get the services provided by the provider.
      * @return array
      */

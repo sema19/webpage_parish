@@ -4,7 +4,7 @@ use October\Rain\Database\Updater;
 
 class UpdaterTest extends TestCase
 {
-    public function setUp(): void
+    public function setUp()
     {
         include_once __DIR__.'/../fixtures/database/SampleClass.php';
 

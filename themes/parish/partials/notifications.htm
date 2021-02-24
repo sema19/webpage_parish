@@ -20,20 +20,59 @@ pageNumber = "{{ :page }}"
 
     {% for record in records %}
         <div class="card mb-2" style="font-weight:normal; font-size: 13pt;">
-        <span class="border
+        <!--<span style="background-image:
             {% if attribute(record, "type")=="alert" %}
-                border-danger text-danger
+                linear-gradient(to right, rgba(255,0,0,0.2), rgba(255,0,0, 0.7));
             {% elseif attribute(record, "type")=="note" %}
-                border-info text-info
+                linear-gradient(to right, rgba(0,255,0,0), rgba(0,255,0,1));
             {% elseif attribute(record, "type")=="correction" %}
-                border-warning text-warning
+                linear-gradient(to right, rgba(0,255,255,0), rgba(0,255,255,1));
             {% elseif attribute(record, "type")=="obituary" %}
-                border-dark text-dark
+                linear-gradient(to right, rgba(255,255,255,0), rgba(100,100,100,1));
             {% else %}
                 border-light text-dark
             {% endif %}
-        ">
+        ">-->
+        {% if attribute(record, "type")=="alert" %}
+            <div class="card-body pt-1 pb-1" style="color:red;">
+                <img src="themes/parish/assets/images/alert.png" alt="!" style="height:40px"></img>
+                {{ attribute(record, "headline") }}
+                <button class="btn" data-toggle="collapse" data-target="#id_{{ record.id }}">...</button>
+            </div>
+            <div class="collapse" id="id_{{ record.id }}">
+                <div class="container ptb-2" style="font-weight:normal; font-size: 12pt; color:red;" >
+                {{ attribute(record, "message") }}
+                </div>
+            </div>
+        {% elseif attribute(record, "type")=="note" %}
+            linear-gradient(to right, rgba(0,255,0,0), rgba(0,255,0,1));
+        {% elseif attribute(record, "type")=="correction" %}
+            linear-gradient(to right, rgba(0,255,255,0), rgba(0,255,255,1));
+        {% elseif attribute(record, "type")=="obituary" %}
+            <div class="card-body pt-1 pb-1" style="color:black;">
+                <img src="themes/parish/assets/images/cross.png" alt="!" style="height:40px"></img>
+                {{ attribute(record, "headline") }}
+                <button class="btn" data-toggle="collapse" data-target="#id_{{ record.id }}">...</button>
+            </div>
+            <div class="collapse" id="id_{{ record.id }}">
+                <div class="container ptb-2" style="font-weight:normal; font-size: 12pt;" >
+                {{ attribute(record, "message") }}
+                </div>
+            </div>
+        {% else %}
+            <div class="card-body pt-1 pb-1" style="color:black;">
+                {{ attribute(record, "headline") }}
+                <button class="btn" data-toggle="collapse" data-target="#id_{{ record.id }}">...</button>
+            </div>
+            <div class="collapse" id="id_{{ record.id }}">
+                <div class="container ptb-2" style="font-weight:normal; font-size: 12pt;" >
+                {{ attribute(record, "message") }}
+                </div>
+            </div>
+        {% endif %}
+            <!--
             <div class="card-body pt-1 pb-1">
+                <img src="themes/parish/assets/images/alert.png" alt="!" style="height:60px"></img>
                 {{ attribute(record, "headline") }}
                 <button class="btn" data-toggle="collapse" data-target="#id_{{ record.id }}">...</button>
             </div>
@@ -43,7 +82,8 @@ pageNumber = "{{ :page }}"
                 {{ attribute(record, "message") }}
                 </div>
             </div>
-        </span>
+            -->
+        <!--</span>-->
         </div>
 
     {% else %}

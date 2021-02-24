@@ -1,6 +1,6 @@
 <?php
 
-class TestCase extends PHPUnit\Framework\TestCase
+class TestCase extends PHPUnit_Framework_TestCase
 {
     /**
      * Creates the application.
@@ -9,6 +9,11 @@ class TestCase extends PHPUnit\Framework\TestCase
      */
     public function createApplication()
     {
+    }
+
+    public function testNothing()
+    {
+        // Test nothing
     }
 
     protected static function callProtectedMethod($object, $name, $params = [])

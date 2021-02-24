@@ -29,60 +29,71 @@ fields:
         mode: date
         span: left
         type: datepicker
-    end_date:
-        label: 'teugn.parish::lang.end_date'
-        mode: date
-        span: auto
-        type: datepicker
     start_time:
         label: 'teugn.parish::lang.starttime'
         mode: time
-        span: auto
-        type: datepicker
-    end_time:
-        label: 'teugn.parish::lang.endtime'
-        mode: time
-        span: auto
+        span: left
         type: datepicker
     info:
         label: 'teugn.parish::lang.info'
         span: full
         type: text
-    details:
-        label: 'teugn.parish::lang.details'
-        size: ''
-        span: full
-        type: textarea
-    status:
-        label: 'teugn.parish::lang.status'
-        options:
-            Normal: Normal
-            New: New
-            Canceled: Canceld
-            Rescheduled: Rescheduled
-        showSearch: true
-        span: left
-        type: dropdown
-secondaryTabs:
+tabs:
     fields:
         Lector:
-            label: 'teugn.parish::lang.lector'
+            label: Lector
             nameFrom: name
             descriptionFrom: description
             span: auto
             type: relation
-            tab: 'teugn.parish::lang.lector'
+            tab: Mitwirkende
         Communionhelper:
             label: 'teugn.parish::lang.communionhelper'
-            span: auto
             nameFrom: name
             descriptionFrom: description
+            span: auto
             type: relation
-            tab: Kommunionhelfer
+            tab: Mitwirkende
         Altarserver:
             label: 'teugn.parish::lang.altarserver'
             span: auto
             nameFrom: name
             descriptionFrom: description
             type: relation
-            tab: Ministranten
+            tab: Mitwirkende
+        Sacristan:
+            label: 'teugn.parish::lang.sacristan'
+            span: auto
+            nameFrom: name
+            descriptionFrom: description
+            type: relation
+            tab: Mitwirkende
+        end_date:
+            label: 'teugn.parish::lang.end_date'
+            mode: date
+            span: auto
+            type: datepicker
+            tab: 'teugn.parish::lang.details'
+        end_time:
+            label: 'teugn.parish::lang.endtime'
+            mode: time
+            span: auto
+            type: datepicker
+            tab: 'teugn.parish::lang.details'
+        details:
+            label: 'teugn.parish::lang.details'
+            size: ''
+            span: full
+            type: textarea
+            tab: 'teugn.parish::lang.details'
+        status:
+            label: 'teugn.parish::lang.status'
+            options:
+                Normal: Normal
+                New: New
+                Canceled: Canceld
+                Rescheduled: Rescheduled
+            showSearch: true
+            span: auto
+            type: dropdown
+            tab: 'teugn.parish::lang.details'
