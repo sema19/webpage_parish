@@ -1,0 +1,28 @@
+columns:
+    id:
+        label: id
+        type: number
+    date:
+        label: date
+        type: text
+    liturgy:
+        label: liturgy
+        type: text
+    rank:
+        label: rank
+        type: text
+    color:
+        label: color
+        type: text
+    first_reading:
+        label: first_reading
+        type: text
+    response_psalm:
+        label: response_psalm
+        type: text
+    sedond_reading:
+        label: sedond_reading
+        type: text
+    gospel:
+        label: gospel
+        type: text

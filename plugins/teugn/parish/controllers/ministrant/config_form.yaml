@@ -1,0 +1,10 @@
+name: Ministrant
+modelClass: Teugn\Parish\Models\Ministrant
+form: $/teugn/parish/models/ministrant/fields.yaml
+defaultRedirect: teugn/parish/ministrant
+create:
+    redirect: 'teugn/parish/ministrant/update/:id'
+    redirectClose: teugn/parish/ministrant
+update:
+    redirect: teugn/parish/ministrant
+    redirectClose: teugn/parish/ministrant

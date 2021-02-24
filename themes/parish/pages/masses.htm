@@ -1,0 +1,118 @@
+title = "masses"
+url = "/masses/:page"
+layout = "base"
+is_hidden = 0
+
+[builderList activityList]
+modelClass = "Teugn\Parish\Models\Activitiy"
+scope = "scopeNextMasses"
+scopeValue = "{{ :scope }}"
+displayColumn = "id"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+
+<div class="container">
+    <div class="row pt-4" >
+        <div class="col-12" >
+            <div class="masses_filtered">
+                {% set records = activityList.records %}
+                {% set displayColumn = activityList.displayColumn %}
+                {% set noRecordsMessage = activityList.noRecordsMessage %}
+                {% set detailsPage = activityList.detailsPage %}
+                {% set detailsKeyColumn = activityList.detailsKeyColumn %}
+                {% set detailsUrlParameter = activityList.detailsUrlParameter %}
+
+                {% set last_date = "-not set-" %}
+                {% for record in records %}
+                    {% set next_date = attribute(record, 'start_date')|date("d.m.Y") %}
+                    {% set id_day = "id_day_l_"~attribute(record, 'start_date')|date("d_m_Y")~"_"~attribute(record, 'start_time')|date("H_i") %}
+                    {% if last_date != next_date %}
+                        {% set last_date = next_date %}
+                        <div class="shadow-sm p-2 bg-white">
+                            <div class="row " style="background-color: RGB(246,246,246);">
+                                <div class="col-lg-2">
+                                    {% set wday = attribute(record, 'start_date')|date("l") %}
+                                    {% if wday=="Monday" %}{% set wday="Montag" %}{% endif %}
+                                    {% if wday=="Tuesday" %}{% set wday="Dienstag" %}{% endif %}
+                                    {% if wday=="Wednesday" %}{% set wday="Mittwoch" %}{% endif %}
+                                    {% if wday=="Thursday" %}{% set wday="Donnerstag" %}{% endif %}
+                                    {% if wday=="Friday" %}{% set wday="Freitag" %}{% endif %}
+                                    {% if wday=="Saturday" %}{% set wday="Samstag" %}{% endif %}
+                                    {% if wday=="Sunday" %}{% set wday="Sonntag" %}{% endif %}
+                                    {{ wday }}<br/>
+                                    {{ attribute(record, 'start_date')|date("d.m.Y") }}
+                                </div>
+                                <div class="col-lg-10">
+                                    <div class="row pb-2">
+                                        <div class="col-8" style="font-size: 20;">
+                                            {{ attribute(record.LiturgicalDay, 'info') }}
+                                        </div>
+                                    </div>
+                                    <div class="collapse" id="{{ id_day }}">
+                                        D:{{ attribute(record.LiturgicalDay, 'details') }}
+                                    </div>
+                                    {% for innerrecord in records %}
+                                        {% set innerdate = attribute(innerrecord, 'start_date')|date("d.m.Y") %}
+                                        {% set innerid = "id_" ~ attribute(innerrecord, 'start_date')|date("d_m") ~ "_" ~ attribute(innerrecord, 'start_time')|date("Y_H_i") %}
+                                        {% if innerdate == last_date %}
+                                            <div class="shadow-sm p-1 mb-1 bg-white">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <span data-toggle="collapse" data-target="#{{ innerid }}">
+                                                    <div class="row">
+                                                        <div class="col-lg-1">
+                                                            {{ attribute(innerrecord, 'start_time')|date('H:i') }}
+                                                        </div>
+                                                        <div class="col-lg-2">
+                                                            {{ attribute(innerrecord, 'location') }}
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            {{ attribute(innerrecord, 'type') }}
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            {{ attribute(innerrecord, 'info') }}
+                                                        </div>
+                                                    </div>
+                                                    </span>
+                                                    <div class="collapse" id="{{ innerid }}">
+                                                        {% partial 'mass_details' mass=innerrecord %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% else %}
+                <p>Keine Messen eingetragen!</p>
+                {% endfor %}
+
+                {% if records.lastPage > 1 %}
+                    <ul class="pagination">
+                        {% if records.currentPage > 1 %}
+                            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage-1) }) }}">&larr; Prev</a></li>
+                        {% endif %}
+
+                        {% for page in 1..records.lastPage %}
+                            <li class="{{ records.currentPage == page ? 'active' : null }}">
+                                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+                            </li>
+                        {% endfor %}
+
+                        {% if records.lastPage > records.currentPage %}
+                            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage+1) }) }}">Next &rarr;</a></li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+

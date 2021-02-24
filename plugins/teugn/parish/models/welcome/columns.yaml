@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: id
+        type: number
+    headline:
+        label: headline
+        type: text
+    text:
+        label: text
+        type: text
+    picture:
+        label: picture
+        type: text
+    link:
+        label: link
+        type: text

@@ -1,0 +1,4 @@
+title: Altarserver
+modelClass: Teugn\Parish\Models\Altarserver
+toolbar:
+    buttons: reorder_toolbar

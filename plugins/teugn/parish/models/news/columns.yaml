@@ -1,0 +1,29 @@
+columns:
+    id:
+        label: id
+        type: number
+    headline:
+        label: headline
+        type: text
+    message:
+        label: message
+        type: text
+    link:
+        label: link
+        type: text
+    type:
+        label: type
+        type: text
+        searchable: true
+        sortable: true
+    expires_at:
+        label: expires_at
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+        searchable: true
+        sortable: true
+    updated_at:
+        label: updated_at
+        type: datetime

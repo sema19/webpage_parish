@@ -1,0 +1,10 @@
+name: Letter
+form: $/teugn/parish/models/letter/fields.yaml
+modelClass: Teugn\Parish\Models\Letter
+defaultRedirect: teugn/parish/letter
+create:
+    redirect: 'teugn/parish/letter/update/:id'
+    redirectClose: teugn/parish/letter
+update:
+    redirect: teugn/parish/letter
+    redirectClose: teugn/parish/letter

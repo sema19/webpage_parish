@@ -1,0 +1,4 @@
+title: Ministrant
+modelClass: Teugn\Parish\Models\Ministrant
+toolbar:
+    buttons: reorder_toolbar

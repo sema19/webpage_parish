@@ -1,0 +1,33 @@
+==
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="templates/base.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link href="{{ 'assets/css/base.css'|theme }}" rel="stylesheet">
+        <title>Pfarrei Teugn Lengfeld Alkofen</title>
+    </head>
+    <body>
+      <div class="bg" style="background-image: url({{ 'assets/images/background.png'|theme }});" >
+        <header>
+            {% partial 'header' %}
+        </header>
+        {% partial 'navigation' %}
+        <div class="container pt-0" style="height:100%; background-color: white;" >
+            <div class="row" style="height:100%">
+                <div class="col-lg-2" style="background-color:RGB(240,240,240);">
+                    <div class='sidebar'>
+                    {% partial 'nav_administration' %}
+                    </div>
+                </div>
+                <div class="col-lg-9 pt-3">
+                    {% page %}
+                </div>
+            </div>
+        </div>
+        {% partial 'footer' %}
+      </div>
+    </body>
+</html>

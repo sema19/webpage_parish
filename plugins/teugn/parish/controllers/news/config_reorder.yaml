@@ -1,0 +1,4 @@
+title: News
+modelClass: Teugn\Parish\Models\News
+toolbar:
+    buttons: reorder_toolbar

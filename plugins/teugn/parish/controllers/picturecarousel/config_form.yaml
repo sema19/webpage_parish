@@ -1,0 +1,10 @@
+name: Picturecarousel
+form: $/teugn/parish/models/picturecarousel/fields.yaml
+modelClass: Teugn\Parish\Models\Picturecarousel
+defaultRedirect: teugn/parish/picturecarousel
+create:
+    redirect: 'teugn/parish/picturecarousel/update/:id'
+    redirectClose: teugn/parish/picturecarousel
+update:
+    redirect: teugn/parish/picturecarousel
+    redirectClose: teugn/parish/picturecarousel

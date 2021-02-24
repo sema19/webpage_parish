@@ -1,0 +1,32 @@
+fields:
+    picture:
+        label: 'teugn.parish::lang.picture'
+        mode: file
+        span: auto
+        type: mediafinder
+    headline:
+        label: 'teugn.parish::lang.headline'
+        span: auto
+        type: text
+    link:
+        label: 'teugn.parish::lang.link'
+        span: auto
+        type: text
+    headline_color:
+        label: 'teugn.parish::lang.headline_color'
+        span: left
+        type: colorpicker
+    background_color:
+        label: 'teugn.parish::lang.background_color'
+        span: auto
+        type: colorpicker
+    details:
+        label: 'teugn.parish::lang.details'
+        oc.commentPosition: below
+        span: full
+        type: text
+    expires_at:
+        label: 'teugn.parish::lang.expires_at'
+        mode: datetime
+        span: auto
+        type: datepicker

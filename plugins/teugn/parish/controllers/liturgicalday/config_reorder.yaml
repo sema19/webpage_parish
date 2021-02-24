@@ -1,0 +1,4 @@
+title: LiturgicalDay
+modelClass: Teugn\Parish\Models\LiturgicalDay
+toolbar:
+    buttons: reorder_toolbar

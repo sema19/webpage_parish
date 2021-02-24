@@ -1,0 +1,122 @@
+title = "blog"
+url = "/blog/:page"
+layout = "base"
+is_hidden = 0
+
+[blogPosts]
+pageNumber = "{{ :page }}"
+postsPerPage = 5
+noPostsMessage = "No posts found"
+sortOrder = "published_at desc"
+categoryPage = 404
+postPage = "blog_post"
+==
+
+<div class="container p-2">
+    <div class="row">
+        <div class="col-lg-9">
+        {% set posts = blogPosts.posts %}
+
+        <!--<ul class="post-list list-group">-->
+        {% for post in posts %}
+            <!--<li class="list-group-item">-->
+                <div class="row p-2">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-8 p-2">
+                        <h4><a href="{{ post.url }}" style="color:black;">{{ post.title }}</a></h4>
+
+                        <p class="info" style="font-size: 15px; color:RGB(100,100,100);">
+                            {% if post.categories.count %}
+                                {% set categoryLinks = post.categories | map(c => "<a href=\"#{c.url}\" style='color:RGB(100,100,100)'>#{c.name}</a>") | join(', ') %}
+                                vom {{ post.published_at | date("d.m.Y") }} in {{ categoryLinks | raw }}
+                                <!--
+                                {{ 'rainlab.blog::lang.post.posted_byline' | trans({
+                                    date: post.published_at | date('rainlab.blog::lang.post.date_format' | trans),
+                                    categories: categoryLinks
+                                }) }}
+                                -->
+                            {% else %}
+                                vom {{ post.published_at | date("d.m.Y") }}
+                                <!--{{ 'rainlab.blog::lang.post.posted_byline_no_categories' | trans({
+                                    date: post.published_at | date('rainlab.blog::lang.post.date_format' | trans)
+                                }) }}
+                                -->
+                            {% endif %}
+                        </p>
+                        <span>
+                            <p>
+                            {% if post.excerpt | length >= 100 %}
+                                {{ (post.excerpt)[:97] }}...
+                            {% else %}
+                                {{ post.excerpt }}
+                            {% endif %}
+                            </p>
+                        </span>
+
+
+
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        {% if post.featured_images.count %}
+                        <p>
+                            <img
+                                data-src="{{ post.featured_images|first.filename }}"
+                                src="{{ post.featured_images|first.path }}"
+                                alt="{{ post.featured_images|first.description }}"
+                                style="height:120px; max-width: 100%" />
+                        </p>
+                        {% endif %}
+                    </div>
+
+
+
+                </div>
+                <hr style="background-color: lightgrey; height: 1px" />
+
+
+
+                <!-- <p class="excerpt">{{ post.summary | raw }}</p> -->
+            <!--</li>-->
+        {% else %}
+            <!--<li class="no-data">-->
+                {{ blogPosts.noPostsMessage }}
+            <!--</li>-->
+        {% endfor %}
+    <!--</ul>-->
+
+
+        {% if posts.lastPage > 1 %}
+        <div class="center">
+            <ul class="pagination" style="display: inline-flex;">
+                {% if posts.currentPage > 1 %}
+                    <li><a href="{{ this.page.baseFileName | page({ (blogPosts.pageParam): (posts.currentPage-1) }) }}">&larr; Prev</a></li>
+                {% endif %}
+                {% for page in 1..posts.lastPage %}
+                    <li class="{{ posts.currentPage == page ? 'active' : null }}">
+                        <a href="{{ this.page.baseFileName | page({ (blogPosts.pageParam): page }) }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+                {% if posts.lastPage > posts.currentPage %}
+                    <li>
+                        <a href="{{ this.page.baseFileName | page({ (blogPosts.pageParam): (posts.currentPage+1) }) }}">Next &rarr;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endif %}
+
+
+
+        </div>
+
+        <div class="col-lg-4">
+            {% component 'blogCategories' %}
+        </div>
+
+    </div>
+</div>
+

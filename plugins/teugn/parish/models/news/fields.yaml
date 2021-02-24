@@ -1,0 +1,26 @@
+fields:
+    headline:
+        label: 'teugn.parish::lang.headline'
+        span: full
+        type: text
+    message:
+        label: 'teugn.parish::lang.message'
+        size: ''
+        span: full
+        type: textarea
+    type:
+        label: 'teugn.parish::lang.type'
+        options:
+            alert: Warnung
+            note: Hinweis
+            correction: Korrektur
+            new: Neu
+            obituary: Trauernachricht
+        showSearch: true
+        span: auto
+        type: dropdown
+    expires_at:
+        label: 'teugn.parish::lang.expires_at'
+        mode: date
+        span: auto
+        type: datepicker

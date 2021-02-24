@@ -1,0 +1,10 @@
+name: Communionhelper
+form: $/teugn/parish/models/communionhelpers/fields.yaml
+modelClass: Teugn\Parish\Models\Communionhelpers
+defaultRedirect: teugn/parish/communionhelper
+create:
+    redirect: 'teugn/parish/communionhelper/update/:id'
+    redirectClose: teugn/parish/communionhelper
+update:
+    redirect: teugn/parish/communionhelper
+    redirectClose: teugn/parish/communionhelper

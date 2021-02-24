@@ -1,0 +1,4 @@
+title: Communionhelper
+modelClass: Teugn\Parish\Models\Communionhelpers
+toolbar:
+    buttons: reorder_toolbar

@@ -1,0 +1,11 @@
+name: Altarserver
+modelClass: Teugn\Parish\Models\Altarserver
+form: $/teugn/parish/models/altarserver/fields.yaml
+defaultRedirect: teugn/parish/altarserver
+create:
+    redirect: 'teugn/parish/altarserver/update/:id'
+    redirectClose: teugn/parish/altarserver
+update:
+    redirect: teugn/parish/altarserver
+    redirectClose: teugn/parish/altarserver
+preview: {  }

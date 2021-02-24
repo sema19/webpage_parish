@@ -1,0 +1,10 @@
+name: Activity_Sacristan
+modelClass: Teugn\Parish\Models\Activitiy
+form: $/teugn/parish/models/activitiy/activity_sacristan.yaml
+defaultRedirect: teugn/parish/activity_sacristan
+create:
+    redirect: 'teugn/parish/activity_sacristan/update/:id'
+    redirectClose: teugn/parish/activity_sacristan
+update:
+    redirect: teugn/parish/activity_sacristan
+    redirectClose: teugn/parish/activity_sacristan

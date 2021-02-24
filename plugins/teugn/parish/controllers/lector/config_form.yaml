@@ -1,0 +1,10 @@
+name: Lector
+form: $/teugn/parish/models/lector/fields.yaml
+modelClass: Teugn\Parish\Models\Lector
+defaultRedirect: teugn/parish/lector
+create:
+    redirect: 'teugn/parish/lector/update/:id'
+    redirectClose: teugn/parish/lector
+update:
+    redirect: teugn/parish/lector
+    redirectClose: teugn/parish/lector

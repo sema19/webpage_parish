@@ -1,0 +1,61 @@
+==
+
+<div class="container pl-3" style="font-size: 13;">
+    <div class="row">
+        <div class="col-lg-2" style="font-weight:bold;">
+            Mesner:
+        </div>
+        <div class="col-lg-10">
+            {% set comma='' %}
+            {% for item in mass.Sacristan %}
+            {{ comma ~ attribute(item,'name') }}
+            {% set comma=", " %}
+            {% else %}
+            - nicht eingeteilt -
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2" style="font-weight:bold;">
+            Lektor:
+        </div>
+        <div class="col-lg-10">
+            {% set comma='' %}
+            {% for item in mass.Lector %}
+            {{ comma ~ attribute(item,'name') }}
+            {% set comma=", " %}
+            {% else %}
+            - nicht eingeteilt -
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2" style="font-weight:bold;">
+            Kommunionhelfer:
+        </div>
+        <div class="col-lg-10">
+            {% set comma='' %}
+            {% for item in mass.Communionhelper %}
+            {{ comma ~ attribute(item,'name') }}
+            {% set comma=", " %}
+            {% else %}
+            - nicht eingeteilt -
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2" style="font-weight:bold;">
+            Ministranten:
+        </div>
+        <div class="col-lg-10">
+            {% set comma='' %}
+            {% for item in mass.Altarserver %}
+            {{ comma ~ attribute(item,'name') }}
+            {% set comma=", " %}
+            {% else %}
+            - nicht eingeteilt -
+            {% endfor %}
+        </div>
+    </div>
+</div>
+

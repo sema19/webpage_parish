@@ -1,0 +1,10 @@
+name: News
+form: $/teugn/parish/models/news/fields.yaml
+modelClass: Teugn\Parish\Models\News
+defaultRedirect: teugn/parish/news
+create:
+    redirect: 'teugn/parish/news/update/:id'
+    redirectClose: teugn/parish/news
+update:
+    redirect: teugn/parish/news
+    redirectClose: teugn/parish/news

@@ -1,0 +1,13 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        type: text
+    location:
+        label: 'teugn.parish::lang.location'
+        span: auto
+        options:
+            Teugn: Teugn
+            Lengfeld: Lengfeld
+            Alkofen: Alkofen
+        type: radio

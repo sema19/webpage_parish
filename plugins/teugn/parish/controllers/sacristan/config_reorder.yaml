@@ -1,0 +1,4 @@
+title: Sacristan
+modelClass: Teugn\Parish\Models\Sacristan
+toolbar:
+    buttons: reorder_toolbar

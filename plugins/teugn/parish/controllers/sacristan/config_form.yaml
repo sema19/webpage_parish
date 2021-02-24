@@ -1,0 +1,10 @@
+name: Sacristan
+form: $/teugn/parish/models/sacristan/fields.yaml
+modelClass: Teugn\Parish\Models\Sacristan
+defaultRedirect: teugn/parish/sacristan
+create:
+    redirect: 'teugn/parish/sacristan/update/:id'
+    redirectClose: teugn/parish/sacristan
+update:
+    redirect: teugn/parish/sacristan
+    redirectClose: teugn/parish/sacristan

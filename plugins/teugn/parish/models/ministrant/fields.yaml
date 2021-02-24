@@ -1,0 +1,30 @@
+fields:
+    lastname:
+        label: 'teugn.parish::lang.lastname'
+        span: auto
+        type: text
+    firstname:
+        label: 'teugn.parish::lang.firstname'
+        span: auto
+        type: text
+    displayname:
+        label: 'teugn.parish::lang.displayname'
+        span: auto
+        type: text
+    status:
+        label: 'teugn.parish::lang.status'
+        options:
+            regular: Normal
+            trial: Probezeit
+            paused: Pausiert
+            reduced: Reduziert
+        showSearch: true
+        span: auto
+        type: dropdown
+    location:
+        label: 'teugn.parish::lang.location'
+        span: auto
+        options:
+            Teugn: Teugn
+            Lengfeld: Lengfeld
+        type: radio

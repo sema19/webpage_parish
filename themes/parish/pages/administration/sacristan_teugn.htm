@@ -1,0 +1,51 @@
+title = "Sacristan_Teugn"
+url = "/sacristan_teugn"
+layout = "base_administration"
+is_hidden = 0
+
+[builderList]
+modelClass = "Teugn\Parish\Models\Activitiy"
+scope = "scopeNextMassesTeugn"
+scopeValue = "{{ :scope }}"
+displayColumn = "type"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+<h2>Mesner Teugn</h2><br>
+{% set records = builderList.records %}
+{% set displayColumn = builderList.displayColumn %}
+{% set noRecordsMessage = builderList.noRecordsMessage %}
+{% set detailsPage = builderList.detailsPage %}
+{% set detailsKeyColumn = builderList.detailsKeyColumn %}
+{% set detailsUrlParameter = builderList.detailsUrlParameter %}
+
+<div class="container">
+{% for record in records %}
+    {% set wday = attribute(record, 'start_date')|date("D") %}
+    {% if wday=="Mon" %}{% set wday="Mo" %}{% endif %}
+    {% if wday=="Tue" %}{% set wday="Di" %}{% endif %}
+    {% if wday=="Wed" %}{% set wday="Mi" %}{% endif %}
+    {% if wday=="Thu" %}{% set wday="Do" %}{% endif %}
+    {% if wday=="Fri" %}{% set wday="Fr" %}{% endif %}
+    {% if wday=="Sat" %}{% set wday="Sa" %}{% endif %}
+    {% if wday=="Sun" %}{% set wday="So" %}{% endif %}
+    <div class="row">
+        <div class="col-lg-4">
+            {{ wday }}. {{ attribute(record, 'start_date')|date("d.m.Y") }}<br>
+            {{ attribute(record, 'start_time')|date("H:i") }} Uhr
+        </div>
+        <div class="col-lg-8">
+            {% for sacr in record.Sacristan %}
+            {{ attribute(sacr, 'name') }}<br>
+            {% endfor %}
+        </div>
+    </div>
+    <hr style="background-color: green;" />
+{% else %}
+    <p>Zur Zeit sind keine Messen eingetragen und somit auch keine Mesner eingeteilt.</p>
+{% endfor %}
+</div>
+
+

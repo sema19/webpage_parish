@@ -1,0 +1,10 @@
+name: Welcome
+form: $/teugn/parish/models/welcome/fields.yaml
+modelClass: Teugn\Parish\Models\Welcome
+defaultRedirect: teugn/parish/welcome
+create:
+    redirect: 'teugn/parish/welcome/update/:id'
+    redirectClose: teugn/parish/welcome
+update:
+    redirect: teugn/parish/welcome
+    redirectClose: teugn/parish/welcome

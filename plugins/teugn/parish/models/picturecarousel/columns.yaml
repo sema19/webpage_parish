@@ -1,0 +1,31 @@
+columns:
+    id:
+        label: id
+        type: number
+    picture:
+        label: picture
+        type: text
+    headline:
+        label: headline
+        type: text
+    headline_color:
+        label: headline_color
+        type: text
+    background_color:
+        label: background_color
+        type: text
+    link:
+        label: link
+        type: text
+    expires_at:
+        label: expires_at
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime
+    details:
+        label: details
+        type: text

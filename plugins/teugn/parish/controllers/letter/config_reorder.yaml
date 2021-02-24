@@ -1,0 +1,4 @@
+title: Letter
+modelClass: Teugn\Parish\Models\Letter
+toolbar:
+    buttons: reorder_toolbar

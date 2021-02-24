@@ -1,0 +1,4 @@
+title: Activity_Sacristan
+modelClass: Teugn\Parish\Models\Activitiy
+toolbar:
+    buttons: reorder_toolbar

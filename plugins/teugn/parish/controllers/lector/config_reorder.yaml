@@ -1,0 +1,4 @@
+title: Lector
+modelClass: Teugn\Parish\Models\Lector
+toolbar:
+    buttons: reorder_toolbar

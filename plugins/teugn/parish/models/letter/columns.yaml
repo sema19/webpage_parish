@@ -1,0 +1,19 @@
+columns:
+    id:
+        label: id
+        type: number
+    filename:
+        label: filename
+        type: text
+    from_date:
+        label: from_date
+        type: text
+    to_date:
+        label: to_date
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

@@ -1,0 +1,43 @@
+fields:
+    date:
+        label: 'teugn.parish::lang.date'
+        mode: date
+        span: auto
+        type: datepicker
+    liturgy:
+        label: 'teugn.parish::lang.liturgy'
+        span: auto
+        type: text
+    rank:
+        label: 'teugn.parish::lang.rank'
+        span: auto
+        type: text
+    color:
+        label: 'teugn.parish::lang.color'
+        span: auto
+        type: text
+    first_reading:
+        label: 'teugn.parish::lang.first_reading'
+        span: auto
+        type: text
+    response_psalm:
+        label: 'teugn.parish::lang.response_psalm'
+        span: auto
+        type: text
+    sedond_reading:
+        label: 'teugn.parish::lang.second_reading'
+        span: auto
+        type: text
+    gospel:
+        label: 'teugn.parish::lang.gospel'
+        span: left
+        type: text
+    info:
+        label: 'teugn.parish::lang.info'
+        span: full
+        type: text
+    details:
+        label: 'teugn.parish::lang.details'
+        size: ''
+        span: full
+        type: richeditor

@@ -1,0 +1,10 @@
+name: LiturgicalDay
+form: $/teugn/parish/models/liturgicalday/fields.yaml
+modelClass: Teugn\Parish\Models\LiturgicalDay
+defaultRedirect: teugn/parish/liturgicalday
+create:
+    redirect: 'teugn/parish/liturgicalday/update/:id'
+    redirectClose: teugn/parish/liturgicalday
+update:
+    redirect: teugn/parish/liturgicalday
+    redirectClose: teugn/parish/liturgicalday

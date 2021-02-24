@@ -1,0 +1,25 @@
+columns:
+    id:
+        label: id
+        type: number
+    lastname:
+        label: lastname
+        type: text
+    firstname:
+        label: firstname
+        type: text
+    displayname:
+        label: displayname
+        type: text
+    status:
+        label: status
+        type: text
+    location:
+        label: location
+        type: text
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime

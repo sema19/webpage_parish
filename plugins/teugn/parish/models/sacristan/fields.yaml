@@ -1,0 +1,12 @@
+fields:
+    name:
+        label: 'teugn.parish::lang.plugin.name'
+        span: auto
+        type: text
+    location:
+        label: 'teugn.parish::lang.location'
+        span: auto
+        options:
+            Teugn: Teugn
+            Lengfeld: Lengfeld
+        type: radio

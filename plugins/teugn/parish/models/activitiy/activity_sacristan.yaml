@@ -1,0 +1,13 @@
+fields:
+    start_date:
+        label: 'Date picker'
+        mode: datetime
+        span: auto
+        readOnly: 1
+        type: datepicker
+    Sacristan:
+        label: 'teugn.parish::lang.sacristan'
+        span: auto
+        nameFrom: name
+        descriptionFrom: description
+        type: relation
